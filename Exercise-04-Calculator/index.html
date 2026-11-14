@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scientific Calculator - Basic &amp; Scientific Functions</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="calc-wrapper">
+        <header class="calc-header">
+            <h1>Scientific Calculator</h1>
+            <p>IWT Lab Exercise 04 | HTML, CSS &amp; JavaScript</p>
+        </header>
+
+        <!-- Calculator Machine -->
+        <main class="calculator">
+            
+            <!-- Dual-Line Display -->
+            <div class="calculator-display">
+                <div class="display-status-bar">
+                    <span>Scientific FX-991</span>
+                    <span class="mode-badge" id="angle-mode" onclick="calc.toggleAngleMode()" title="Click to toggle DEG/RAD">DEG</span>
+                </div>
+                <div class="expression-line" id="expression-display">0</div>
+                <div class="result-line" id="result-display">0</div>
+            </div>
+
+            <!-- 5-Column Scientific Keypad -->
+            <div class="keypad-grid">
+                
+                <!-- Row 1: Angle mode & Trig & Clear -->
+                <button type="button" class="btn btn-sci" onclick="calc.toggleAngleMode()">DEG/RAD</button>
+                <button type="button" class="btn btn-sci" onclick="calc.appendFunction('sin')">sin</button>
+                <button type="button" class="btn btn-sci" onclick="calc.appendFunction('cos')">cos</button>
+                <button type="button" class="btn btn-sci" onclick="calc.appendFunction('tan')">tan</button>
+                <button type="button" class="btn btn-clear" onclick="calc.clearAll()">AC</button>
+
+                <!-- Row 2: Logs, Roots, Power, Delete -->
+                <button type="button" class="btn btn-sci" onclick="calc.appendFunction('ln')">ln</button>
+                <button type="button" class="btn btn-sci" onclick="calc.appendFunction('log')">log</button>
+                <button type="button" class="btn btn-sci" onclick="calc.appendFunction('sqrt')">&radic;</button>
+                <button type="button" class="btn btn-sci" onclick="calc.append('^')">x<sup>y</sup></button>
+                <button type="button" class="btn btn-del" onclick="calc.deleteLast()">DEL</button>
+
+                <!-- Row 3: Constants & Parentheses & Division -->
+                <button type="button" class="btn btn-sci" onclick="calc.append('&pi;')">&pi;</button>
+                <button type="button" class="btn btn-sci" onclick="calc.append('e')">e</button>
+                <button type="button" class="btn btn-sci" onclick="calc.append('(')">(</button>
+                <button type="button" class="btn btn-sci" onclick="calc.append(')')">)</button>
+                <button type="button" class="btn btn-op" onclick="calc.append('&divide;')">&divide;</button>
+
+                <!-- Row 4: Digits 7,8,9, Percentage, Multiply -->
+                <button type="button" class="btn btn-num" onclick="calc.append('7')">7</button>
+                <button type="button" class="btn btn-num" onclick="calc.append('8')">8</button>
+                <button type="button" class="btn btn-num" onclick="calc.append('9')">9</button>
+                <button type="button" class="btn btn-op" onclick="calc.append('%')">%</button>
+                <button type="button" class="btn btn-op" onclick="calc.append('&times;')">&times;</button>
+
+                <!-- Row 5: Digits 4,5,6, Toggle Sign, Subtract -->
+                <button type="button" class="btn btn-num" onclick="calc.append('4')">4</button>
+                <button type="button" class="btn btn-num" onclick="calc.append('5')">5</button>
+                <button type="button" class="btn btn-num" onclick="calc.append('6')">6</button>
+                <button type="button" class="btn btn-sci" onclick="calc.toggleSign()">&plusmn;</button>
+                <button type="button" class="btn btn-op" onclick="calc.append('-')">&minus;</button>
+
+                <!-- Row 6: Digits 1,2,3, 0, Addition -->
+                <button type="button" class="btn btn-num" onclick="calc.append('1')">1</button>
+                <button type="button" class="btn btn-num" onclick="calc.append('2')">2</button>
+                <button type="button" class="btn btn-num" onclick="calc.append('3')">3</button>
+                <button type="button" class="btn btn-num" onclick="calc.append('0')">0</button>
+                <button type="button" class="btn btn-op" onclick="calc.append('+')">&plus;</button>
+
+                <!-- Row 7: Decimal, Double Zero, Equals -->
+                <button type="button" class="btn btn-num" onclick="calc.append('.')">.</button>
+                <button type="button" class="btn btn-num" onclick="calc.append('00')">00</button>
+                <button type="button" class="btn btn-equal" style="grid-column: span 3;" onclick="calc.calculate()">=</button>
+
+            </div>
+
+            <!-- History Tape -->
+            <div class="history-section">
+                <h3>Calculation History</h3>
+                <ul class="history-list" id="history-list">
+                    <li style="color: #64748b; font-style: italic;">No previous calculations</li>
+                </ul>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Script -->
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,271 @@
+/* ============================================================
+   IWT Exercise 07: Company Portal Stylesheet (Admin & Employee)
+   Technologies: HTML5, CSS3, JavaScript, PHP, MySQL
+   Clean Corporate Theme with Role Distinctions
+   ============================================================ */
+
+:root {
+    --primary: #2563eb;
+    --primary-dark: #1d4ed8;
+    --admin-theme: #7c3aed;
+    --admin-dark: #6d28d9;
+    --admin-bg: #ede9fe;
+    --emp-theme: #059669;
+    --emp-bg: #d1fae5;
+    --secondary: #0f172a;
+    --bg-page: #f8fafc;
+    --bg-card: #ffffff;
+    --text-primary: #1e293b;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+    --danger: #dc2626;
+    --danger-bg: #fee2e2;
+    --radius: 8px;
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background-color: var(--bg-page);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header & Navbar */
+header.corp-header {
+    background-color: var(--secondary);
+    color: #ffffff;
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 14px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.corp-brand {
+    font-size: 20px;
+    font-weight: 800;
+    color: #ffffff;
+    text-decoration: none;
+    letter-spacing: -0.5px;
+}
+
+.corp-brand span {
+    color: #38bdf8;
+}
+
+nav.corp-nav ul {
+    display: flex;
+    list-style: none;
+    gap: 12px;
+    align-items: center;
+}
+
+nav.corp-nav a {
+    color: #cbd5e1;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 7px 14px;
+    border-radius: 6px;
+    transition: all 0.2s;
+}
+
+nav.corp-nav a:hover,
+nav.corp-nav a.active {
+    background-color: var(--primary);
+    color: #ffffff;
+}
+
+/* Main Layout */
+main.main-content {
+    flex: 1;
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+    width: 100%;
+}
+
+.card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    box-shadow: var(--shadow);
+    margin-bottom: 25px;
+}
+
+.card-title {
+    font-size: 22px;
+    color: var(--secondary);
+    margin-bottom: 6px;
+}
+
+.card-subtitle {
+    color: var(--text-muted);
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+/* Role Badges */
+.role-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.role-admin {
+    background-color: var(--admin-bg);
+    color: var(--admin-dark);
+    border: 1px solid rgba(124, 58, 237, 0.3);
+}
+
+.role-employee {
+    background-color: var(--emp-bg);
+    color: var(--emp-theme);
+    border: 1px solid rgba(5, 150, 105, 0.3);
+}
+
+/* Auth Cards */
+.auth-box {
+    max-width: 480px;
+    margin: 30px auto;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+label {
+    display: block;
+    font-size: 13.5px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #334155;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="password"],
+select {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: inherit;
+    background-color: #f8fafc;
+    transition: all 0.2s;
+}
+
+input:focus,
+select:focus {
+    outline: none;
+    border-color: var(--primary);
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    color: #ffffff;
+    border: none;
+    padding: 12px;
+    font-size: 15px;
+    font-weight: 700;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100%;
+    transition: background 0.2s;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark);
+}
+
+/* Alerts */
+.alert {
+    padding: 12px 16px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.alert-success {
+    background-color: #dcfce7;
+    color: #14532d;
+    border-left: 4px solid #16a34a;
+}
+
+.alert-danger {
+    background-color: var(--danger-bg);
+    color: #7f1d1d;
+    border-left: 4px solid var(--danger);
+}
+
+/* Tables for Displaying Details */
+.table-responsive {
+    overflow-x: auto;
+    margin-top: 15px;
+}
+
+table.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+}
+
+table.data-table th,
+table.data-table td {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+}
+
+table.data-table th {
+    background-color: #f1f5f9;
+    color: #334155;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 11.5px;
+    letter-spacing: 0.5px;
+}
+
+table.data-table tbody tr:hover {
+    background-color: #f8fafc;
+}
+
+/* Footer */
+footer.corp-footer {
+    background-color: var(--secondary);
+    color: #94a3b8;
+    text-align: center;
+    padding: 20px;
+    font-size: 13.5px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: auto;
+}

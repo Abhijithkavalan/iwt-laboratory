@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Technologies Quiz - 20 MCQs</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        
+        <!-- Header -->
+        <header class="quiz-header">
+            <div>
+                <h1>Internet &amp; Web Technologies Quiz</h1>
+                <p>20 Multiple Choice Questions on HTML, CSS, JavaScript &amp; Web Fundamentals</p>
+            </div>
+            <div class="progress-pill" id="answered-counter">0 of 20 Answered</div>
+        </header>
+
+        <!-- Active Quiz Section -->
+        <main id="quiz-section">
+            <div id="quiz-questions-container">
+                <!-- Dynamically generated 20 questions via script.js -->
+            </div>
+
+            <div class="actions-container">
+                <button type="button" class="btn-primary" id="submit-quiz-btn">Submit Quiz</button>
+            </div>
+        </main>
+
+        <!-- Result Section (Shown upon submission) -->
+        <section id="result-section">
+            <div class="result-card">
+                <h2 class="result-title">Quiz Assessment Summary</h2>
+                <div id="performance-badge" class="badge"></div>
+
+                <!-- Statistics Grid -->
+                <div class="score-grid">
+                    <div class="stat-box">
+                        <div class="stat-number" id="stat-total">20</div>
+                        <div class="stat-label">Total Questions</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number text-correct" id="stat-correct">0</div>
+                        <div class="stat-label">Correct Answers</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number text-wrong" id="stat-wrong">0</div>
+                        <div class="stat-label">Wrong Answers</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number text-unattempted" id="stat-unattempted">0</div>
+                        <div class="stat-label">Unattempted</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number" id="stat-score" style="color: var(--primary);">0 / 20</div>
+                        <div class="stat-label">Final Score</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number" id="stat-percentage" style="color: var(--primary);">0%</div>
+                        <div class="stat-label">Percentage</div>
+                    </div>
+                </div>
+
+                <button type="button" class="btn-restart" id="restart-quiz-btn">&#8635; Restart Quiz</button>
+            </div>
+
+            <!-- Detailed Answer Review -->
+            <h3 class="review-header">Detailed Answer Key &amp; Explanations</h3>
+            <div id="review-list-container">
+                <!-- Generated dynamically via renderAnswerReview() -->
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Quiz Logic -->
+    <script src="script.js"></script>
+</body>
+</html>

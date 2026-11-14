@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery Books API Explorer | IWT Exercise 10</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="portal-header">
+        <h1>📚 Scholarly Books Explorer</h1>
+        <p>Asynchronous Data Retrieval via jQuery <code>$.ajax()</code> GET Request</p>
+        <span class="header-badge">Hypothetical Books Catalog API</span>
+    </header>
+
+    <main class="main-content">
+        
+        <!-- Controls Toolbar -->
+        <div class="toolbar-card">
+            
+            <div class="toolbar-actions">
+                <button type="button" id="btn-load-books" class="btn-primary">
+                    <span>📚</span> Load Books ($.ajax)
+                </button>
+                <button type="button" id="btn-clear-books" class="btn-clear">
+                    Clear Display
+                </button>
+                <span class="badge-counter" id="books-counter">0 Books</span>
+            </div>
+
+            <!-- Dynamic Search & Filters -->
+            <div class="toolbar-filters">
+                <input type="text" id="search-filter" class="search-box" placeholder="Filter by title, author, ISBN...">
+                
+                <select id="category-filter" class="select-box">
+                    <option value="">All Categories</option>
+                </select>
+            </div>
+
+        </div>
+
+        <!-- Status & Error Alert Container -->
+        <div id="status-message" class="alert"></div>
+
+        <!-- Animated Loading State -->
+        <div id="loading-indicator" class="loading-box">
+            <div class="spinner"></div>
+            <p><strong>Executing jQuery $.ajax() GET request...</strong><br>Connecting to hypothetical books endpoint and parsing JSON telemetry...</p>
+        </div>
+
+        <!-- Dynamic Books Display Grid -->
+        <section class="books-grid" id="books-grid">
+            <!-- Dynamically populated via jQuery $.ajax() in script.js -->
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="portal-footer">
+        <p>Internet &amp; Web Technologies (IWT) Laboratory | Exercise 10: jQuery AJAX Books</p>
+    </footer>
+
+    <!-- jQuery Library (Local copy with CDN fallback) -->
+    <script src="jquery.min.js"></script>
+    <script>
+        // Fallback to CDN if local jquery fails
+        if (typeof jQuery === 'undefined') {
+            document.write('<script src="https://code.jquery.com/jquery-3.7.1.min.js"><\/script>');
+        }
+    </script>
+
+    <!-- Custom Books AJAX Script -->
+    <script src="script.js"></script>
+</body>
+</html>

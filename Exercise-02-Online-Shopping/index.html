@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopEase - Online Shopping Webpage</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Top Announcement Bar -->
+    <div class="top-bar">
+        <div class="container">
+            <span>🎉 Special Student Discount: Use coupon code <strong>IWT2026</strong> for 15% off!</span>
+            <div>
+                <a href="#support">24/7 Support</a> | 
+                <a href="#track">Track Order</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Header -->
+    <header class="site-header">
+        <div class="container header-inner">
+            <div class="brand-logo">
+                <span>ShopEase</span>
+                <span class="logo-highlight">Store</span>
+                <span class="brand-badge">Official</span>
+            </div>
+
+            <!-- Navigation Bar -->
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#home" class="active">Home</a></li>
+                    <li><a href="#categories">Categories</a></li>
+                    <li><a href="#products">Products</a></li>
+                    <li><a href="#deals">Deals</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+
+            <!-- Cart Trigger Button -->
+            <div class="header-actions">
+                <button class="cart-button" id="cartBtn" title="View your shopping cart">
+                    <span class="cart-icon">🛒</span>
+                    <span>Cart</span>
+                    <span class="cart-count" id="cartCount">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Banner -->
+    <section class="hero-banner" id="home">
+        <div class="container">
+            <h1>Next-Gen Electronics &amp; Accessories</h1>
+            <p>Explore top-tier laptops, smart audio devices, professional photography gear, and computer peripherals at student-friendly prices.</p>
+            <a href="#products" class="hero-cta">Browse All Products &darr;</a>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories-section" id="categories">
+        <div class="container">
+            <div class="section-header">
+                <h2>Featured Categories</h2>
+                <p>Browse through handpicked technology categories curated for academics and professionals</p>
+            </div>
+            <div class="categories-grid">
+                <div class="category-card">
+                    <div class="category-icon">💻</div>
+                    <h3>Laptops &amp; PCs</h3>
+                    <span>24 Products</span>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">🎧</div>
+                    <h3>Smart Audio</h3>
+                    <span>18 Products</span>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">⌚</div>
+                    <h3>Wearables</h3>
+                    <span>12 Products</span>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">📷</div>
+                    <h3>Cameras</h3>
+                    <span>9 Products</span>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">🎒</div>
+                    <h3>Accessories</h3>
+                    <span>30 Products</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <main class="products-section" id="products">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Best-Selling Products</h2>
+                <p>Authentic gadgets backed with manufacturer warranty and hassle-free returns</p>
+            </div>
+
+            <div class="products-grid">
+                
+                <!-- Product 1: Laptop -->
+                <article class="product-card">
+                    <div class="product-image-wrap">
+                        <span class="product-badge badge-popular">Best Seller</span>
+                        <img src="assets/images/laptop.jpg" alt="Pro Laptop 15 High Performance Laptop">
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Laptops &amp; Computers</span>
+                        <h3 class="product-title">UltraSlim Pro Laptop 15</h3>
+                        <p class="product-description">Intel Core i7 13th Gen, 16GB DDR5 RAM, 512GB NVMe SSD, 15.6" Full HD Anti-Glare IPS Display.</p>
+                        <div class="product-rating">
+                            <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                            <span class="rating-count">4.8 (142 reviews)</span>
+                        </div>
+                        <div class="product-bottom">
+                            <div class="price-box">
+                                <span class="current-price">&#8377;64,999</span>
+                                <span class="original-price">&#8377;79,999</span>
+                            </div>
+                            <button class="btn-add-cart" onclick="addToCart('UltraSlim Pro Laptop 15')">
+                                <span>&#43;</span> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Product 2: Headphones -->
+                <article class="product-card">
+                    <div class="product-image-wrap">
+                        <span class="product-badge badge-sale">25% OFF</span>
+                        <img src="assets/images/headphones.jpg" alt="BassPro Wireless ANC Headphones">
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Audio &amp; Sound</span>
+                        <h3 class="product-title">BassPro Wireless Headphones</h3>
+                        <p class="product-description">Active Noise Cancelling (ANC), 40mm Dynamic Bass Drivers, 35-Hour battery life, and Bluetooth 5.3.</p>
+                        <div class="product-rating">
+                            <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+                            <span class="rating-count">4.6 (98 reviews)</span>
+                        </div>
+                        <div class="product-bottom">
+                            <div class="price-box">
+                                <span class="current-price">&#8377;4,499</span>
+                                <span class="original-price">&#8377;5,999</span>
+                            </div>
+                            <button class="btn-add-cart" onclick="addToCart('BassPro Wireless Headphones')">
+                                <span>&#43;</span> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Product 3: Smartwatch -->
+                <article class="product-card">
+                    <div class="product-image-wrap">
+                        <span class="product-badge badge-new">New Arrival</span>
+                        <img src="assets/images/smartwatch.jpg" alt="PulseFit Smart Health Watch">
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Wearable Tech</span>
+                        <h3 class="product-title">PulseFit Smart Health Watch</h3>
+                        <p class="product-description">1.78" AMOLED display, continuous heart rate monitor, SpO2 sensor, sleep tracker, IP68 water resistance.</p>
+                        <div class="product-rating">
+                            <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+                            <span class="rating-count">4.5 (87 reviews)</span>
+                        </div>
+                        <div class="product-bottom">
+                            <div class="price-box">
+                                <span class="current-price">&#8377;2,999</span>
+                                <span class="original-price">&#8377;4,999</span>
+                            </div>
+                            <button class="btn-add-cart" onclick="addToCart('PulseFit Smart Health Watch')">
+                                <span>&#43;</span> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Product 4: Camera -->
+                <article class="product-card">
+                    <div class="product-image-wrap">
+                        <span class="product-badge badge-popular">Editor's Pick</span>
+                        <img src="assets/images/camera.jpg" alt="Lumix 4K Mirrorless Digital Camera">
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Cameras &amp; Optics</span>
+                        <h3 class="product-title">Lumix 4K Mirrorless Camera</h3>
+                        <p class="product-description">24.2 MP APS-C Sensor, 4K/60fps video capture, high-speed dual autofocus with 18-55mm lens kit included.</p>
+                        <div class="product-rating">
+                            <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                            <span class="rating-count">4.9 (64 reviews)</span>
+                        </div>
+                        <div class="product-bottom">
+                            <div class="price-box">
+                                <span class="current-price">&#8377;52,499</span>
+                                <span class="original-price">&#8377;59,999</span>
+                            </div>
+                            <button class="btn-add-cart" onclick="addToCart('Lumix 4K Mirrorless Camera')">
+                                <span>&#43;</span> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Product 5: Mechanical Keyboard -->
+                <article class="product-card">
+                    <div class="product-image-wrap">
+                        <span class="product-badge badge-sale">15% OFF</span>
+                        <img src="assets/images/keyboard.jpg" alt="Titan RGB Mechanical Gaming Keyboard">
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Computer Accessories</span>
+                        <h3 class="product-title">Titan RGB Mechanical Keyboard</h3>
+                        <p class="product-description">Custom tactile mechanical switches, per-key RGB backlighting, braided USB-C cable, anti-ghosting technology.</p>
+                        <div class="product-rating">
+                            <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+                            <span class="rating-count">4.7 (110 reviews)</span>
+                        </div>
+                        <div class="product-bottom">
+                            <div class="price-box">
+                                <span class="current-price">&#8377;3,299</span>
+                                <span class="original-price">&#8377;3,999</span>
+                            </div>
+                            <button class="btn-add-cart" onclick="addToCart('Titan RGB Mechanical Keyboard')">
+                                <span>&#43;</span> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Product 6: Laptop Backpack -->
+                <article class="product-card">
+                    <div class="product-image-wrap">
+                        <span class="product-badge badge-new">Trending</span>
+                        <img src="assets/images/backpack.jpg" alt="Urban Voyager Waterproof Laptop Backpack">
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Bags &amp; Luggage</span>
+                        <h3 class="product-title">Urban Voyager Travel Backpack</h3>
+                        <p class="product-description">Water-repellent oxford fabric, dedicated 15.6" padded laptop compartment, integrated external USB charge port.</p>
+                        <div class="product-rating">
+                            <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                            <span class="rating-count">4.8 (75 reviews)</span>
+                        </div>
+                        <div class="product-bottom">
+                            <div class="price-box">
+                                <span class="current-price">&#8377;1,899</span>
+                                <span class="original-price">&#8377;2,699</span>
+                            </div>
+                            <button class="btn-add-cart" onclick="addToCart('Urban Voyager Travel Backpack')">
+                                <span>&#43;</span> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Toast Notification for Add to Cart -->
+    <div id="toast">Item added to your cart successfully!</div>
+
+    <!-- Site Footer -->
+    <footer class="site-footer" id="contact">
+        <div class="container footer-grid">
+            <div class="footer-column">
+                <h4>ShopEase Electronics</h4>
+                <p style="font-size: 14px; line-height: 1.7; color: #94a3b8;">
+                    Your trusted destination for quality tech gear and modern electronics. Built for student laboratory demonstration.
+                </p>
+            </div>
+            <div class="footer-column">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#categories">Categories</a></li>
+                    <li><a href="#products">Featured Products</a></li>
+                    <li><a href="#deals">Today's Deals</a></li>
+                </ul>
+            </div>
+            <div class="footer-column" id="support">
+                <h4>Customer Support</h4>
+                <ul>
+                    <li><a href="#help">Help &amp; FAQs</a></li>
+                    <li><a href="#shipping">Shipping Policy</a></li>
+                    <li><a href="#returns">Returns &amp; Replacement</a></li>
+                    <li><a href="#privacy">Privacy Statement</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Contact Us</h4>
+                <ul>
+                    <li>📍 42 Tech Park Road, Bengaluru</li>
+                    <li>📞 Toll-free: 1800-123-SHOP</li>
+                    <li>✉️ support@shopease-demo.com</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2026 ShopEase Store | Internet &amp; Web Technologies (IWT) Laboratory - Exercise 02</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Minimal JavaScript for Cart Interactivity -->
+    <script>
+        let cartItemCount = 0;
+
+        function addToCart(productName) {
+            cartItemCount++;
+            document.getElementById('cartCount').textContent = cartItemCount;
+
+            const toast = document.getElementById('toast');
+            toast.textContent = `✓ "${productName}" added to your cart! (${cartItemCount} total)`;
+            toast.className = 'show';
+
+            setTimeout(function() {
+                toast.className = toast.className.replace('show', '');
+            }, 3000);
+        }
+
+        document.getElementById('cartBtn').addEventListener('click', function() {
+            if (cartItemCount === 0) {
+                alert('Your shopping cart is currently empty. Click "Add to Cart" on any product to add items!');
+            } else {
+                alert(`You have ${cartItemCount} item(s) in your cart.\nReady for checkout demonstration.`);
+            }
+        });
+    </script>
+</body>
+</html>

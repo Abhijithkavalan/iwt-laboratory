@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAX Weather Application | IWT Exercise 09</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="weather-app-container">
+        
+        <!-- Application Header -->
+        <header class="app-header">
+            <h1>🌤️ AJAX Weather Portal</h1>
+            <p>Asynchronous Data Retrieval via Hypothetical Weather API</p>
+            <span class="protocol-badge" id="ajax-request-type">Protocol: AJAX via Fetch API</span>
+        </header>
+
+        <!-- Search Bar -->
+        <div class="search-box">
+            <div class="input-group">
+                <input type="text" id="city-input" class="search-input" placeholder="Enter city name (e.g. Bengaluru, Mumbai, London)..." autofocus>
+                <button type="button" id="search-btn" class="btn-search">Search</button>
+            </div>
+        </div>
+
+        <!-- Quick Search City Chips for Viva Evaluation -->
+        <div class="quick-chips">
+            <span class="chips-label">Popular:</span>
+            <span class="chip" data-city="Bengaluru">Bengaluru</span>
+            <span class="chip" data-city="Mumbai">Mumbai</span>
+            <span class="chip" data-city="New Delhi">New Delhi</span>
+            <span class="chip" data-city="London">London</span>
+            <span class="chip" data-city="Tokyo">Tokyo</span>
+            <span class="chip" data-city="New York">New York</span>
+        </div>
+
+        <!-- Loading State Indicator -->
+        <div class="loading-box" id="loading-state">
+            <div class="spinner"></div>
+            <p>Executing asynchronous AJAX request...</p>
+        </div>
+
+        <!-- Error Alert State -->
+        <div class="error-box" id="error-state"></div>
+
+        <!-- Weather Display Card -->
+        <main class="weather-card" id="weather-card">
+            
+            <div class="weather-header">
+                <div class="location-info">
+                    <h2 id="weather-city">Bengaluru</h2>
+                    <span id="weather-country">India</span>
+                </div>
+                <div class="weather-icon" id="weather-icon">⛅</div>
+            </div>
+
+            <div class="temp-row">
+                <div class="temp-large" id="weather-temp">24°C</div>
+                <div class="feels-like" id="weather-feels">Feels like 25.0°C</div>
+            </div>
+
+            <div>
+                <span class="condition-pill" id="weather-condition">Pleasant</span>
+            </div>
+
+            <p class="weather-desc" id="weather-description">Scattered clouds with a gentle cool breeze</p>
+
+            <!-- Metrics Grid -->
+            <div class="metrics-grid">
+                <div class="metric-item">
+                    <div class="metric-icon">💧</div>
+                    <div>
+                        <div class="metric-title">Humidity</div>
+                        <div class="metric-val" id="weather-humidity">68%</div>
+                    </div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-icon">💨</div>
+                    <div>
+                        <div class="metric-title">Wind Speed</div>
+                        <div class="metric-val" id="weather-wind">14.2 km/h</div>
+                    </div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-icon">⏲️</div>
+                    <div>
+                        <div class="metric-title">Pressure</div>
+                        <div class="metric-val" id="weather-pressure">1014 hPa</div>
+                    </div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-icon">🌐</div>
+                    <div>
+                        <div class="metric-title">Data Source</div>
+                        <div class="metric-val" style="font-size: 13px; color: var(--primary);">Hypothetical API</div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <!-- Method Demonstration Toggle Options -->
+        <div style="padding: 10px 24px; background: #f8fafc; border-top: 1px solid var(--border); font-size: 12px; display: flex; justify-content: space-between; align-items: center;">
+            <span style="color: var(--text-muted);">AJAX Protocol:</span>
+            <div>
+                <button type="button" onclick="fetchWeather(cityInput.value, false)" style="background: none; border: 1px solid var(--primary); color: var(--primary); padding: 2px 8px; border-radius: 4px; cursor: pointer; font-size: 11px; margin-right: 4px;">Fetch API</button>
+                <button type="button" onclick="fetchWeather(cityInput.value, true)" style="background: none; border: 1px solid #475569; color: #475569; padding: 2px 8px; border-radius: 4px; cursor: pointer; font-size: 11px;">XMLHttpRequest (XHR)</button>
+            </div>
+        </div>
+
+        <footer class="app-footer">
+            <p>Internet &amp; Web Technologies (IWT) Laboratory | Exercise 09</p>
+        </footer>
+
+    </div>
+
+    <!-- Script -->
+    <script src="script.js"></script>
+</body>
+</html>

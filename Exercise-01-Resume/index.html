@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Resume - Abhijith k | MCA</title>
+    <style>
+        /* Base page styling for clean laboratory demonstration */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .resume-container {
+            max-width: 850px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 35px 45px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            border-radius: 8px;
+            border-top: 6px solid #2980b9;
+        }
+
+        /* Header section with photo and contact */
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .header-content h1 {
+            margin: 0 0 5px 0;
+            font-size: 28px;
+            color: #2c3e50;
+            letter-spacing: 0.5px;
+        }
+
+        .header-content .subtitle {
+            margin: 0 0 10px 0;
+            font-size: 16px;
+            font-weight: 600;
+            color: #2980b9;
+        }
+
+        address {
+            font-style: normal;
+            font-size: 14px;
+            color: #555;
+            line-height: 1.7;
+        }
+
+        address a {
+            color: #2980b9;
+            text-decoration: none;
+        }
+
+        address a:hover {
+            text-decoration: underline;
+        }
+
+        figure.profile-figure {
+            margin: 0;
+            text-align: center;
+        }
+
+        figure.profile-figure img {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #2980b9;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        /* Semantic Section Headings */
+        section {
+            margin-bottom: 24px;
+        }
+
+        h2 {
+            font-size: 18px;
+            color: #2c3e50;
+            text-transform: uppercase;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 5px;
+            margin-bottom: 12px;
+            letter-spacing: 0.8px;
+        }
+
+        h3 {
+            font-size: 16px;
+            margin: 10px 0 4px 0;
+            color: #34495e;
+        }
+
+        p {
+            margin: 6px 0;
+            font-size: 14.5px;
+            text-align: justify;
+        }
+
+        /* Educational qualifications table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        table th, table td {
+            border: 1px solid #dcdde1;
+            padding: 9px 12px;
+            text-align: left;
+        }
+
+        table thead {
+            background-color: #2980b9;
+            color: #ffffff;
+        }
+
+        table tbody tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        table tbody tr:hover {
+            background-color: #edf2f7;
+        }
+
+        /* Lists for skills, hobbies, achievements */
+        ul {
+            margin: 6px 0 12px 20px;
+            padding: 0;
+            font-size: 14.5px;
+        }
+
+        ul li {
+            margin-bottom: 5px;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+        }
+
+        .skills-category {
+            background: #f8f9fa;
+            border-left: 4px solid #2980b9;
+            padding: 10px 15px;
+            border-radius: 4px;
+        }
+
+        .skills-category h4 {
+            margin: 0 0 6px 0;
+            color: #2c3e50;
+            font-size: 14px;
+        }
+
+        .skills-category ul {
+            margin: 0;
+            padding-left: 18px;
+        }
+
+        /* Project article */
+        article.project-item {
+            margin-bottom: 14px;
+            padding-bottom: 10px;
+            border-bottom: 1px dashed #e2e8f0;
+        }
+
+        article.project-item:last-child {
+            border-bottom: none;
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 600;
+            font-size: 15px;
+            color: #2c3e50;
+        }
+
+        .project-tech {
+            font-size: 13px;
+            color: #e67e22;
+            font-weight: 600;
+        }
+
+        /* Declaration Section */
+        .declaration-box {
+            background-color: #fcfcfc;
+            border: 1px solid #e1e8ed;
+            padding: 15px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .sign-row {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            font-weight: 600;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 25px;
+            text-align: center;
+            font-size: 12px;
+            color: #7f8c8d;
+            border-top: 1px solid #ecf0f1;
+            padding-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="resume-container">
+        <!-- Header with Name, Profile Image, Contact Details -->
+        <header>
+            <div class="header-content">
+                <h1>ABHIJITH K</h1>
+                <p class="subtitle">Master of Computer Applications (MCA) Candidate</p>
+                <address>
+                    <strong>Email:</strong> <a href="mailto:abhijithkavalan@gmail.com">abhijith.k@example.com</a><br>
+                    <strong>Phone:</strong> +91 8590346489<br>
+                    <strong>Location:</strong> Mahe, pondicherry, India - 560001<br>
+                    <strong>GitHub:</strong> <a href="https://github.com/Abhijithkavalan" target="_blank">https://github.com/Abhijithkavalan</a>
+                </address>
+            </div>
+            <figure class="profile-figure">
+                <img src="assets/images/profile.jpg" alt="Abhijith K Profile Photo">
+                <figcaption style="display: none;">Abhijith K</figcaption>
+            </figure>
+        </header>
+
+        <main>
+            <!-- Career Objective -->
+            <section id="objective">
+                <h2>Career Objective</h2>
+                <p>
+                    Diligent and analytical MCA student with strong foundational expertise in computer science, full-stack web development, and database architecture. Seeking an entry-level software engineering role in an innovative technology firm where I can apply my programming skills to solve real-world problems while contributing to organizational growth.
+                </p>
+            </section>
+
+            <!-- Educational Qualifications -->
+            <section id="education">
+                <h2>Educational Qualifications</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Degree / Course</th>
+                            <th>Institution / College</th>
+                            <th>Board / University</th>
+                            <th>Year of Passing</th>
+                            <th>Score / CGPA</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Master of Computer Applications (MCA)</td>
+                            <td>Department of Computer Science, University College</td>
+                            <td>State Technological University</td>
+                            <td>2025 - 2027 (Pursuing)</td>
+                            <td>7.00 CGPA</td>
+                        </tr>
+                        <tr>
+                            <td>Bachelor of Computer Applications (BCA)</td>
+                            <td> College of Arts and Science</td>
+                            <td>pondicherry University</td>
+                            <td>2022 - 2025</td>
+                            <td>8.40 CGPA</td>
+                        </tr>
+                        <tr>
+                            <td>Higher Secondary (Class XII)</td>
+                            <td>St. Joseph's Pre-University College</td>
+                            <td>ikkghss</td>
+                            <td>2022</td>
+                            <td>86.50%</td>
+                        </tr>
+                        <tr>
+                            <td>Secondary School (Class X)</td>
+                            <td>ikkghss</td>
+                            <td> mahe</td>
+                            <td>2020</td>
+                            <td>89.20%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Technical Skills -->
+            <section id="skills">
+                <h2>Technical Skills</h2>
+                <div class="skills-grid">
+                    <div class="skills-category">
+                        <h4>Programming Languages</h4>
+                        <ul>
+                            <li>C / C++</li>
+                            <li>Java (Core & OOP)</li>
+                            <li>Python</li>
+                            <li>PHP</li>
+                        </ul>
+                    </div>
+                    <div class="skills-category">
+                        <h4>Web Technologies</h4>
+                        <ul>
+                            <li>HTML5 (Semantic Markup)</li>
+                            <li>CSS3 (Flexbox & Grid)</li>
+                            <li>JavaScript (ES6+)</li>
+                            <li>AJAX & jQuery</li>
+                        </ul>
+                    </div>
+                    <div class="skills-category">
+                        <h4>Databases & Tools</h4>
+                        <ul>
+                            <li>MySQL / MariaDB</li>
+                            <li>phpMyAdmin</li>
+                            <li>Git & GitHub</li>
+                            <li>VS Code & XAMPP</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Academic Projects -->
+            <section id="projects">
+                <h2>Academic Projects</h2>
+
+                <article class="project-item">
+                    <div class="project-header">
+                        <span>1. Online Hospital Appointment & Consultation Portal</span>
+                        <span class="project-tech">PHP, MySQL, HTML5, CSS3, JavaScript</span>
+                    </div>
+                    <p>
+                        Developed a responsive web portal allowing patients to schedule appointments with medical specialists, view doctor availability in real-time, and download medical prescription receipts.
+                    </p>
+                    <ul>
+                        <li>Implemented role-based dashboards for Admins, Doctors, and Patients with secure sessions.</li>
+                        <li>Configured parameterized MySQL queries to prevent SQL injection vulnerabilities.</li>
+                    </ul>
+                </article>
+
+                <article class="project-item">
+                    <div class="project-header">
+                        <span>2. Real-Time Interactive Quiz & Assessment Engine</span>
+                        <span class="project-tech">JavaScript (ES6), HTML5, CSS3</span>
+                    </div>
+                    <p>
+                        Designed a client-side examination platform with dynamic score computation, automated timer handling, instant answer validation, and responsive mobile-first user interface.
+                    </p>
+                    <ul>
+                        <li>Utilized DOM manipulation without external frameworks for optimal load performance.</li>
+                    </ul>
+                </article>
+            </section>
+
+            <!-- Certifications -->
+            <section id="certifications">
+                <h2>Certifications</h2>
+                <ul>
+                    <li><strong>Full Stack Web Development:</strong> Completed 12-week comprehensive certification on HTML, CSS, JavaScript, and PHP (Coursera, 2025).</li>
+                    <li><strong>Database Design & SQL Specialist:</strong> Certified in relational schema design and optimization (Oracle Academy, 2024).</li>
+                    <li><strong>Python for Everybody:</strong> Specialization covering data structures, networked APIs, and databases (University of Michigan, 2024).</li>
+                </ul>
+            </section>
+
+            <!-- Achievements -->
+            <section id="achievements">
+                <h2>Key Achievements</h2>
+                <ul>
+                    <li>Secured <strong>1st Prize</strong> in Intra-Collegiate Web Design Contest "WebCraft 2025" for designing an accessible educational portal.</li>
+                    <li>Recognized in the Dean's Academic Merit List for consistent top academic rank during BCA semesters.</li>
+                    <li>Finalist in Inter-University Hackathon "CodeStorm 2024" for an automated community pantry tracking solution.</li>
+                </ul>
+            </section>
+
+            <!-- Hobbies & Interests -->
+            <section id="hobbies">
+                <h2>Hobbies & Extracurricular Interests</h2>
+                <ul>
+                    <li>Open Source Contributing & Tech Blogging</li>
+                    <li>Competitive Chess & Algorithmic Problem Solving</li>
+                    <li>Photography & Digital Illustration</li>
+                    <li>Volunteering in University Coding Club mentorship activities</li>
+                </ul>
+            </section>
+
+            <!-- Declaration -->
+            <section id="declaration">
+                <h2>Declaration</h2>
+                <div class="declaration-box">
+                    <p>
+                        I hereby solemnly declare that all the statements and details furnished above in this resume are true, complete, and correct to the best of my knowledge and belief.
+                    </p>
+                    <div class="sign-row">
+                        <div>
+                            <span>Place:</span> Bengaluru<br>
+                            <span>Date:</span> 04th November 2026
+                        </div>
+                        <div style="text-align: right;">
+                            <span>(Rahul Sharma)</span><br>
+                            <em>Signature of Applicant</em>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer>
+            <p>Internet &amp; Web Technologies (IWT) Laboratory | Exercise 01: Resume Webpage | Academic Year 2025-2026</p>
+        </footer>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,303 @@
+/* ============================================================
+   IWT Exercise 06: Department Dynamic Website Stylesheet
+   Technologies: HTML5, CSS3, JavaScript, PHP, MySQL
+   Academic Department Portal Theme
+   ============================================================ */
+
+:root {
+    --primary: #0284c7;
+    --primary-dark: #0369a1;
+    --secondary: #0f172a;
+    --accent: #f59e0b;
+    --success: #16a34a;
+    --success-bg: #dcfce7;
+    --danger: #dc2626;
+    --danger-bg: #fee2e2;
+    --bg-page: #f8fafc;
+    --bg-card: #ffffff;
+    --text-primary: #1e293b;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+    --radius: 8px;
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background-color: var(--bg-page);
+    color: var(--text-primary);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Header & Nav */
+header.dept-header {
+    background-color: var(--secondary);
+    color: #ffffff;
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.nav-container {
+    max-width: 1150px;
+    margin: 0 auto;
+    padding: 14px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.dept-brand {
+    font-size: 20px;
+    font-weight: 700;
+    color: #ffffff;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.dept-brand span {
+    color: var(--primary);
+}
+
+nav.dept-nav ul {
+    display: flex;
+    list-style: none;
+    gap: 12px;
+    align-items: center;
+}
+
+nav.dept-nav a {
+    color: #cbd5e1;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 7px 14px;
+    border-radius: 6px;
+    transition: all 0.2s;
+}
+
+nav.dept-nav a:hover,
+nav.dept-nav a.active {
+    background-color: var(--primary);
+    color: #ffffff;
+}
+
+.btn-nav-action {
+    background-color: var(--primary);
+    color: #ffffff !important;
+}
+
+/* Main Container */
+main.main-content {
+    flex: 1;
+    max-width: 1150px;
+    margin: 30px auto;
+    padding: 0 20px;
+    width: 100%;
+}
+
+/* Hero Section */
+.hero {
+    background: linear-gradient(135deg, #0369a1 0%, #0284c7 100%);
+    color: #ffffff;
+    border-radius: 12px;
+    padding: 50px 40px;
+    margin-bottom: 35px;
+    box-shadow: var(--shadow);
+}
+
+.hero h1 {
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 12px;
+}
+
+.hero p {
+    font-size: 17px;
+    color: #e0f2fe;
+    max-width: 750px;
+    margin-bottom: 24px;
+}
+
+.hero-actions {
+    display: flex;
+    gap: 14px;
+}
+
+/* Card Grid */
+.grid-3 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-bottom: 35px;
+}
+
+.card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 26px;
+    box-shadow: var(--shadow);
+}
+
+.card h3 {
+    font-size: 18px;
+    margin-bottom: 12px;
+    color: var(--secondary);
+    border-bottom: 2px solid var(--primary);
+    padding-bottom: 6px;
+}
+
+.card p {
+    color: var(--text-muted);
+    font-size: 14.5px;
+}
+
+/* Auth Cards (Login & Register) */
+.auth-wrapper {
+    max-width: 500px;
+    margin: 40px auto;
+}
+
+.auth-header {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.auth-header h2 {
+    font-size: 26px;
+    color: var(--secondary);
+}
+
+.auth-header p {
+    color: var(--text-muted);
+    font-size: 14px;
+    margin-top: 4px;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+label {
+    display: block;
+    font-size: 13.5px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #334155;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="password"] {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: inherit;
+    background-color: #f8fafc;
+    transition: all 0.2s;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--primary);
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+}
+
+.btn-block {
+    width: 100%;
+    padding: 12px;
+    font-size: 15px;
+    font-weight: 700;
+    border-radius: 6px;
+    cursor: pointer;
+    border: none;
+    background-color: var(--primary);
+    color: #ffffff;
+    transition: background 0.2s;
+    margin-top: 10px;
+}
+
+.btn-block:hover {
+    background-color: var(--primary-dark);
+}
+
+/* Alerts */
+.alert {
+    padding: 12px 16px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.alert-success {
+    background: var(--success-bg);
+    color: #14532d;
+    border-left: 4px solid var(--success);
+}
+
+.alert-danger {
+    background: var(--danger-bg);
+    color: #7f1d1d;
+    border-left: 4px solid var(--danger);
+}
+
+/* Dashboard Specifics */
+.user-badge {
+    background: #e0f2fe;
+    color: #0369a1;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.profile-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.profile-table th,
+.profile-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+    font-size: 14px;
+}
+
+.profile-table th {
+    width: 35%;
+    color: var(--text-muted);
+}
+
+/* Footer */
+footer.dept-footer {
+    background-color: var(--secondary);
+    color: #94a3b8;
+    text-align: center;
+    padding: 20px;
+    font-size: 13.5px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: auto;
+}

@@ -1,0 +1,122 @@
+{
+  "bengaluru": {
+    "city": "Bengaluru",
+    "country": "India",
+    "temperature": 24.5,
+    "feels_like": 25.0,
+    "condition": "Pleasant",
+    "description": "Scattered clouds with a gentle cool breeze",
+    "humidity": 68,
+    "wind_speed": 14.2,
+    "pressure": 1014,
+    "icon": "⛅"
+  },
+  "mumbai": {
+    "city": "Mumbai",
+    "country": "India",
+    "temperature": 31.0,
+    "feels_like": 36.5,
+    "condition": "Humid",
+    "description": "Hazy sunshine with elevated coastal humidity",
+    "humidity": 82,
+    "wind_speed": 18.5,
+    "pressure": 1010,
+    "icon": "🌤️"
+  },
+  "delhi": {
+    "city": "New Delhi",
+    "country": "India",
+    "temperature": 28.2,
+    "feels_like": 29.0,
+    "condition": "Sunny",
+    "description": "Clear skies with bright afternoon sunlight",
+    "humidity": 45,
+    "wind_speed": 11.0,
+    "pressure": 1016,
+    "icon": "☀️"
+  },
+  "chennai": {
+    "city": "Chennai",
+    "country": "India",
+    "temperature": 32.5,
+    "feels_like": 38.0,
+    "condition": "Warm",
+    "description": "Partly sunny with sea breeze along Marina beach",
+    "humidity": 78,
+    "wind_speed": 16.0,
+    "pressure": 1009,
+    "icon": "🌤️"
+  },
+  "kolkata": {
+    "city": "Kolkata",
+    "country": "India",
+    "temperature": 29.0,
+    "feels_like": 33.0,
+    "condition": "Partly Cloudy",
+    "description": "Passing clouds with moderate humidity",
+    "humidity": 72,
+    "wind_speed": 12.8,
+    "pressure": 1012,
+    "icon": "⛅"
+  },
+  "london": {
+    "city": "London",
+    "country": "United Kingdom",
+    "temperature": 14.0,
+    "feels_like": 12.5,
+    "condition": "Rainy",
+    "description": "Overcast with intermittent light drizzle",
+    "humidity": 88,
+    "wind_speed": 22.0,
+    "pressure": 1006,
+    "icon": "🌧️"
+  },
+  "new york": {
+    "city": "New York",
+    "country": "United States",
+    "temperature": 18.0,
+    "feels_like": 17.2,
+    "condition": "Breezy",
+    "description": "Partly cloudy with brisk northern winds",
+    "humidity": 55,
+    "wind_speed": 26.5,
+    "pressure": 1018,
+    "icon": "🌬️"
+  },
+  "tokyo": {
+    "city": "Tokyo",
+    "country": "Japan",
+    "temperature": 19.5,
+    "feels_like": 19.0,
+    "condition": "Clear",
+    "description": "Crisp autumn weather with excellent visibility",
+    "humidity": 50,
+    "wind_speed": 9.5,
+    "pressure": 1020,
+    "icon": "☀️"
+  },
+  "paris": {
+    "city": "Paris",
+    "country": "France",
+    "temperature": 16.2,
+    "feels_like": 15.5,
+    "condition": "Overcast",
+    "description": "Cloudy skies with cool temperate winds",
+    "humidity": 65,
+    "wind_speed": 15.0,
+    "pressure": 1015,
+    "icon": "☁️"
+  },
+  "sydney": {
+    "city": "Sydney",
+    "country": "Australia",
+    "temperature": 23.0,
+    "feels_like": 23.8,
+    "condition": "Sunny",
+    "description": "Mild coastal sunshine with clear skies",
+    "humidity": 60,
+    "wind_speed": 17.5,
+    "pressure": 1017,
+    "icon": "☀️"
+  }
+}
