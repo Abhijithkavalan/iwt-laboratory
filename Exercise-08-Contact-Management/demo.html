@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Management CRUD | Interactive Demo</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .demo-banner {
+            background: linear-gradient(135deg, #0d9488, #059669);
+            color: #ffffff;
+            padding: 12px 20px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .demo-banner a {
+            color: #fef08a;
+            font-weight: 600;
+            text-decoration: underline;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal.active {
+            display: flex;
+        }
+        .modal-content {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Demo Banner -->
+    <div class="demo-banner">
+        <div>
+            <span>⚡ <strong>Interactive Web Preview:</strong> Client-Side Contact CRUD Simulation (localStorage).</span>
+        </div>
+        <div>
+            <a href="../index.html">← Master Portal</a> | 
+            <a href="index.php">Run PHP / MySQL Backend →</a>
+        </div>
+    </div>
+
+    <!-- Header Navigation -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="demo.html" class="brand">📇 Contact Management System (Demo)</a>
+            <ul class="nav-links">
+                <li><button class="btn btn-primary" onclick="openAddModal()">+ Add New Contact</button></li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="container" style="max-width: 1100px; margin: 30px auto; padding: 0 20px;">
+
+        <div class="card">
+            <div class="card-header" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+                <div>
+                    <h2>Directory of Contacts</h2>
+                    <p>Demonstrating complete Create, Read, Update, Delete (CRUD) operations.</p>
+                </div>
+                <div>
+                    <span class="badge-tag" id="contactCountBadge">3 Total Contacts</span>
+                </div>
+            </div>
+
+            <!-- Controls: Filter & Search -->
+            <div style="display:flex; justify-content:space-between; gap:15px; margin: 20px 0; flex-wrap:wrap;">
+                <input type="text" id="searchBox" placeholder="🔍 Search contacts by name, email or phone..." style="flex:1; min-width:250px; padding:10px 14px; border:1px solid #cbd5e1; border-radius:6px;" oninput="renderContacts()">
+                <select id="categoryFilter" style="padding:10px 14px; border:1px solid #cbd5e1; border-radius:6px;" onchange="renderContacts()">
+                    <option value="ALL">All Categories</option>
+                    <option value="Personal">Personal</option>
+                    <option value="Professional">Professional</option>
+                    <option value="Academic">Academic</option>
+                    <option value="Emergency">Emergency</option>
+                </select>
+                <button class="btn btn-secondary" style="padding: 10px 16px;" onclick="resetSeedContacts()">Reset Data</button>
+            </div>
+
+            <div id="statusAlert"></div>
+
+            <!-- Table -->
+            <div class="table-responsive">
+                <table class="data-table" style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr style="background: #f8fafc; text-align: left;">
+                            <th style="padding: 12px;">#</th>
+                            <th style="padding: 12px;">Full Name</th>
+                            <th style="padding: 12px;">Phone Number</th>
+                            <th style="padding: 12px;">Email Address</th>
+                            <th style="padding: 12px;">Category</th>
+                            <th style="padding: 12px;">Address</th>
+                            <th style="padding: 12px;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="contactsTbody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Add/Edit Contact Modal -->
+    <div class="modal" id="contactModal">
+        <div class="modal-content">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+                <h3 id="modalTitle" style="margin:0;">Add New Contact</h3>
+                <button onclick="closeModal()" style="background:none; border:none; font-size:20px; cursor:pointer;">&times;</button>
+            </div>
+            <form onsubmit="handleContactSave(event)">
+                <input type="hidden" id="editContactId">
+                <div class="form-group" style="margin-bottom:12px;">
+                    <label>Full Name *</label>
+                    <input type="text" id="cName" required style="width:100%; padding:8px; border:1px solid #cbd5e1; border-radius:4px;">
+                </div>
+                <div class="form-group" style="margin-bottom:12px;">
+                    <label>Phone Number *</label>
+                    <input type="tel" id="cPhone" required pattern="[0-9]{10}" placeholder="10-digit number" style="width:100%; padding:8px; border:1px solid #cbd5e1; border-radius:4px;">
+                </div>
+                <div class="form-group" style="margin-bottom:12px;">
+                    <label>Email Address *</label>
+                    <input type="email" id="cEmail" required style="width:100%; padding:8px; border:1px solid #cbd5e1; border-radius:4px;">
+                </div>
+                <div class="form-group" style="margin-bottom:12px;">
+                    <label>Category *</label>
+                    <select id="cCategory" required style="width:100%; padding:8px; border:1px solid #cbd5e1; border-radius:4px;">
+                        <option value="Personal">Personal</option>
+                        <option value="Professional">Professional</option>
+                        <option value="Academic">Academic</option>
+                        <option value="Emergency">Emergency</option>
+                    </select>
+                </div>
+                <div class="form-group" style="margin-bottom:16px;">
+                    <label>Address</label>
+                    <textarea id="cAddress" rows="2" style="width:100%; padding:8px; border:1px solid #cbd5e1; border-radius:4px;"></textarea>
+                </div>
+                <div style="display:flex; justify-content:flex-end; gap:10px;">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="saveBtn">Save Contact</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const SEED_CONTACTS = [
+            { id: 1, name: "Dr. K. S. Ramanathan", phone: "9845011223", email: "hod.ca@university.edu", category: "Academic", address: "Dept of CS, University Campus" },
+            { id: 2, name: "Aditi Rao", phone: "9876543210", email: "aditi.rao@consulting.com", category: "Professional", address: "Tower B, Silicon Valley Park" },
+            { id: 3, name: "Suresh Kavalan", phone: "9447123456", email: "suresh.k@gmail.com", category: "Personal", address: "Green Valley Residency, Kochi" }
+        ];
+
+        function getContacts() {
+            const data = localStorage.getItem('iwt_demo_contacts');
+            if (!data) {
+                localStorage.setItem('iwt_demo_contacts', JSON.stringify(SEED_CONTACTS));
+                return SEED_CONTACTS;
+            }
+            return JSON.parse(data);
+        }
+
+        function saveContacts(list) {
+            localStorage.setItem('iwt_demo_contacts', JSON.stringify(list));
+            renderContacts();
+        }
+
+        function resetSeedContacts() {
+            if (confirm("Reset contact database back to 3 seed contacts?")) {
+                localStorage.setItem('iwt_demo_contacts', JSON.stringify(SEED_CONTACTS));
+                renderContacts();
+            }
+        }
+
+        function openAddModal() {
+            document.getElementById('modalTitle').textContent = "Add New Contact";
+            document.getElementById('editContactId').value = "";
+            document.getElementById('cName').value = "";
+            document.getElementById('cPhone').value = "";
+            document.getElementById('cEmail').value = "";
+            document.getElementById('cCategory').value = "Personal";
+            document.getElementById('cAddress').value = "";
+            document.getElementById('contactModal').classList.add('active');
+        }
+
+        function openEditModal(id) {
+            const list = getContacts();
+            const contact = list.find(c => c.id === id);
+            if (!contact) return;
+
+            document.getElementById('modalTitle').textContent = "Edit Contact";
+            document.getElementById('editContactId').value = contact.id;
+            document.getElementById('cName').value = contact.name;
+            document.getElementById('cPhone').value = contact.phone;
+            document.getElementById('cEmail').value = contact.email;
+            document.getElementById('cCategory').value = contact.category;
+            document.getElementById('cAddress').value = contact.address || "";
+            document.getElementById('contactModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('contactModal').classList.remove('active');
+        }
+
+        function handleContactSave(e) {
+            e.preventDefault();
+            const editId = document.getElementById('editContactId').value;
+            let list = getContacts();
+
+            const contactData = {
+                id: editId ? Number(editId) : Date.now(),
+                name: document.getElementById('cName').value.trim(),
+                phone: document.getElementById('cPhone').value.trim(),
+                email: document.getElementById('cEmail').value.trim(),
+                category: document.getElementById('cCategory').value,
+                address: document.getElementById('cAddress').value.trim()
+            };
+
+            if (editId) {
+                list = list.map(c => c.id === Number(editId) ? contactData : c);
+            } else {
+                list.unshift(contactData);
+            }
+
+            saveContacts(list);
+            closeModal();
+            showAlert(editId ? "Contact updated successfully!" : "New contact created successfully!");
+        }
+
+        function deleteContact(id) {
+            if (confirm("Are you sure you want to delete this contact? This action cannot be undone.")) {
+                let list = getContacts();
+                list = list.filter(c => c.id !== id);
+                saveContacts(list);
+                showAlert("Contact removed from directory.", "warning");
+            }
+        }
+
+        function showAlert(msg, type = "success") {
+            const alertBox = document.getElementById('statusAlert');
+            alertBox.innerHTML = `
+                <div style="background: ${type === 'success' ? '#dcfce7' : '#fef3c7'}; color: ${type === 'success' ? '#15803d' : '#b45309'}; padding: 10px 16px; border-radius: 6px; margin-bottom: 15px; font-weight: 600;">
+                    ${msg}
+                </div>`;
+            setTimeout(() => { alertBox.innerHTML = ''; }, 3500);
+        }
+
+        function renderContacts() {
+            const list = getContacts();
+            const query = (document.getElementById('searchBox').value || '').toLowerCase();
+            const category = document.getElementById('categoryFilter').value;
+
+            const filtered = list.filter(c => {
+                const matchesQuery = c.name.toLowerCase().includes(query) || c.email.toLowerCase().includes(query) || c.phone.includes(query);
+                const matchesCategory = category === 'ALL' || c.category === category;
+                return matchesQuery && matchesCategory;
+            });
+
+            document.getElementById('contactCountBadge').textContent = `${filtered.length} Contacts`;
+            const tbody = document.getElementById('contactsTbody');
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:30px; color:#64748b;">No contacts match the filter criteria.</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = filtered.map((c, i) => `
+                <tr style="border-bottom: 1px solid #f1f5f9;">
+                    <td style="padding: 12px;">${i + 1}</td>
+                    <td style="padding: 12px;"><strong>${c.name}</strong></td>
+                    <td style="padding: 12px;">${c.phone}</td>
+                    <td style="padding: 12px;">${c.email}</td>
+                    <td style="padding: 12px;"><span class="badge-tag" style="background:#e0f2fe; color:#0369a1; padding:4px 8px; border-radius:4px; font-size:12px;">${c.category}</span></td>
+                    <td style="padding: 12px;">${c.address || '—'}</td>
+                    <td style="padding: 12px;">
+                        <button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="openEditModal(${c.id})">Edit</button>
+                        <button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:#ef4444; color:white; border:none; border-radius:4px; cursor:pointer;" onclick="deleteContact(${c.id})">Delete</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Init
+        renderContacts();
+    </script>
+</body>
+</html>

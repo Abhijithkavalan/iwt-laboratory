@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Department Portal | Interactive Web Demo</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .demo-banner {
+            background: linear-gradient(135deg, #0284c7, #0369a1);
+            color: #ffffff;
+            padding: 12px 20px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .demo-banner a {
+            color: #fef08a;
+            font-weight: 600;
+            text-decoration: underline;
+        }
+        .tab-page {
+            display: none;
+        }
+        .tab-page.active {
+            display: block;
+        }
+        .quick-fill-btn {
+            background: #e0f2fe;
+            color: #0369a1;
+            border: 1px solid #7dd3fc;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Demo Banner -->
+    <div class="demo-banner">
+        <div>
+            <span>⚡ <strong>Interactive Web Preview:</strong> Client-side simulation of PHP Sessions & Department Portal.</span>
+        </div>
+        <div>
+            <a href="../index.html">← Master Portal</a> | 
+            <a href="index.php">Run PHP / MySQL Backend →</a>
+        </div>
+    </div>
+
+    <!-- Header & Navigation -->
+    <header class="dept-header">
+        <div class="nav-container">
+            <a href="#" onclick="showPage('home')" class="dept-brand">
+                🎓 <span>CS &amp; MCA</span> Department
+            </a>
+            <nav class="dept-nav">
+                <ul>
+                    <li><a href="#" id="nav-home" class="active" onclick="showPage('home')">Home</a></li>
+                    <li><a href="#" id="nav-about" onclick="showPage('about')">About Us</a></li>
+                    <li id="nav-login-item"><a href="#" id="nav-login" onclick="showPage('login')">Login</a></li>
+                    <li id="nav-reg-item"><a href="#" id="nav-reg" class="btn-nav-action" onclick="showPage('register')">Register</a></li>
+                    <li id="nav-dash-item" style="display:none;"><a href="#" id="nav-dash" class="btn-nav-action" onclick="showPage('dashboard')">Dashboard (<span id="userBadge">Student</span>)</a></li>
+                    <li id="nav-logout-item" style="display:none;"><a href="#" onclick="handleLogout()">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+
+        <!-- Page 1: Home -->
+        <div id="page-home" class="tab-page active">
+            <section class="hero">
+                <h1>Welcome to the Department of Computer Applications</h1>
+                <p>Empowering scholars with cutting-edge knowledge in Internet &amp; Web Technologies, Artificial Intelligence, Cloud Computing, and Software Engineering.</p>
+                <div class="hero-actions">
+                    <button onclick="showPage('register')" style="background: #ffffff; color: #0284c7; padding: 10px 22px; border-radius: 6px; font-weight: 700; border: none; cursor: pointer;">Join Department Portal &rarr;</button>
+                    <button onclick="showPage('about')" style="background: rgba(255,255,255,0.2); color: #ffffff; padding: 10px 22px; border-radius: 6px; font-weight: 700; border: 1px solid white; cursor: pointer; margin-left: 10px;">View Faculty Roster</button>
+                </div>
+            </section>
+
+            <section class="dept-grid">
+                <div class="dept-card">
+                    <h3>💻 Master of Computer Applications</h3>
+                    <p>Rigorous 2-year post-graduate program covering Full-Stack Web Development, Cloud Microservices, Database Internals, and Mobile Computing.</p>
+                </div>
+                <div class="dept-card">
+                    <h3>🔬 Advanced Laboratory Suites</h3>
+                    <p>Equipped with modern computing hardware, local high-speed Gigabit LAN, dedicated LAMP/WAMP stacks, and private Git repositories.</p>
+                </div>
+                <div class="dept-card">
+                    <h3>🚀 Placement &amp; Industry Alliances</h3>
+                    <p>Consistent 95%+ campus placements across Fortune 500 tech corporations, high-growth startups, and academic research institutions.</p>
+                </div>
+            </section>
+        </div>
+
+        <!-- Page 2: About Us -->
+        <div id="page-about" class="tab-page">
+            <div class="dept-card" style="margin-bottom: 25px;">
+                <h2>About the Department</h2>
+                <p>Established in 2004, the Department of Computer Applications is committed to excellence in computing education, research, and technical leadership.</p>
+            </div>
+            <h2>Faculty Directory</h2>
+            <div class="dept-grid">
+                <div class="dept-card">
+                    <h3>Dr. K. S. Ramanathan</h3>
+                    <p><strong>Designation:</strong> Professor &amp; Head of Department</p>
+                    <p><strong>Specialization:</strong> Distributed Systems &amp; Cloud Security</p>
+                    <p><strong>Email:</strong> hod.ca@university.edu</p>
+                </div>
+                <div class="dept-card">
+                    <h3>Prof. Meenakshi Sundaram</h3>
+                    <p><strong>Designation:</strong> Associate Professor</p>
+                    <p><strong>Specialization:</strong> Web Technologies &amp; JavaScript Engines</p>
+                    <p><strong>Email:</strong> meenakshi.s@university.edu</p>
+                </div>
+                <div class="dept-card">
+                    <h3>Prof. Rajeshwari Venkat</h3>
+                    <p><strong>Designation:</strong> Assistant Professor</p>
+                    <p><strong>Specialization:</strong> Database Architectures &amp; Big Data</p>
+                    <p><strong>Email:</strong> r.venkat@university.edu</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page 3: Register -->
+        <div id="page-register" class="tab-page">
+            <div class="auth-card">
+                <h2>Student Registration</h2>
+                <p>Create your department student account.</p>
+                <button type="button" class="quick-fill-btn" onclick="fillRegisterDemo()">⚡ Quick-Fill Demo Details</button>
+                <div id="regAlert"></div>
+                <form onsubmit="handleRegister(event)">
+                    <div class="form-group">
+                        <label for="reg-name">Full Name</label>
+                        <input type="text" id="reg-name" required placeholder="Abhijith K">
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-regno">Register Number</label>
+                        <input type="text" id="reg-regno" required placeholder="23MCA1042">
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-email">Email Address</label>
+                        <input type="email" id="reg-email" required placeholder="abhijith@university.edu">
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-pass">Password</label>
+                        <input type="password" id="reg-pass" required placeholder="Minimum 6 characters">
+                    </div>
+                    <button type="submit" class="btn-submit">Complete Registration</button>
+                </form>
+                <p style="text-align: center; margin-top: 15px; font-size: 14px;">Already registered? <a href="#" onclick="showPage('login')">Login here</a></p>
+            </div>
+        </div>
+
+        <!-- Page 4: Login -->
+        <div id="page-login" class="tab-page">
+            <div class="auth-card">
+                <h2>Student Portal Login</h2>
+                <p>Access your enrolled courses and department laboratory records.</p>
+                <button type="button" class="quick-fill-btn" onclick="fillLoginDemo()">⚡ Quick-Fill Demo Account</button>
+                <div id="loginAlert"></div>
+                <form onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label for="login-email">Email or Register Number</label>
+                        <input type="text" id="login-email" required placeholder="abhijith@university.edu">
+                    </div>
+                    <div class="form-group">
+                        <label for="login-pass">Password</label>
+                        <input type="password" id="login-pass" required placeholder="Your password">
+                    </div>
+                    <button type="submit" class="btn-submit">Sign In to Dashboard</button>
+                </form>
+                <p style="text-align: center; margin-top: 15px; font-size: 14px;">New student? <a href="#" onclick="showPage('register')">Register here</a></p>
+            </div>
+        </div>
+
+        <!-- Page 5: Dashboard -->
+        <div id="page-dashboard" class="tab-page">
+            <div class="dept-card" style="margin-bottom: 25px; background: linear-gradient(135deg, #0284c7, #075985); color: white;">
+                <h2>Welcome, <span id="dashName">Student</span>!</h2>
+                <p>Register Number: <strong id="dashRegNo">23MCA1042</strong> | Program: <strong>Master of Computer Applications</strong></p>
+            </div>
+
+            <h2>Your Enrolled Laboratory Courses (Semester III)</h2>
+            <div class="dept-grid">
+                <div class="dept-card">
+                    <h3>🌐 Internet &amp; Web Technologies Lab</h3>
+                    <p><strong>Course Code:</strong> 23MCA301L | <strong>Credits:</strong> 2</p>
+                    <p>HTML5, CSS3, JavaScript ES6, PHP &amp; MySQL, AJAX, jQuery Explorer.</p>
+                    <span style="display:inline-block; margin-top: 10px; background:#dcfce7; color:#166534; padding:4px 10px; border-radius:4px; font-weight:700; font-size:12px;">Attendance: 96%</span>
+                </div>
+                <div class="dept-card">
+                    <h3>🤖 Artificial Intelligence &amp; ML Lab</h3>
+                    <p><strong>Course Code:</strong> 23MCA302L | <strong>Credits:</strong> 2</p>
+                    <p>Python scientific stack, supervised learning, neural networks, computer vision.</p>
+                    <span style="display:inline-block; margin-top: 10px; background:#dcfce7; color:#166534; padding:4px 10px; border-radius:4px; font-weight:700; font-size:12px;">Attendance: 92%</span>
+                </div>
+                <div class="dept-card">
+                    <h3>☁️ Cloud Computing &amp; DevOps Lab</h3>
+                    <p><strong>Course Code:</strong> 23MCA303L | <strong>Credits:</strong> 2</p>
+                    <p>Docker containerization, Kubernetes orchestration, CI/CD pipeline automation.</p>
+                    <span style="display:inline-block; margin-top: 10px; background:#dcfce7; color:#166534; padding:4px 10px; border-radius:4px; font-weight:700; font-size:12px;">Attendance: 94%</span>
+                </div>
+            </div>
+            <div style="margin-top: 25px;">
+                <button onclick="handleLogout()" style="background: #dc2626; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: 600;">Sign Out</button>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        let currentUser = JSON.parse(localStorage.getItem('iwt_demo_user') || 'null');
+
+        function updateAuthState() {
+            const loginItem = document.getElementById('nav-login-item');
+            const regItem = document.getElementById('nav-reg-item');
+            const dashItem = document.getElementById('nav-dash-item');
+            const logoutItem = document.getElementById('nav-logout-item');
+            const userBadge = document.getElementById('userBadge');
+
+            if (currentUser) {
+                loginItem.style.display = 'none';
+                regItem.style.display = 'none';
+                dashItem.style.display = 'inline-block';
+                logoutItem.style.display = 'inline-block';
+                userBadge.textContent = currentUser.name.split(' ')[0];
+                document.getElementById('dashName').textContent = currentUser.name;
+                document.getElementById('dashRegNo').textContent = currentUser.regno;
+            } else {
+                loginItem.style.display = 'inline-block';
+                regItem.style.display = 'inline-block';
+                dashItem.style.display = 'none';
+                logoutItem.style.display = 'none';
+            }
+        }
+
+        function showPage(pageId) {
+            document.querySelectorAll('.tab-page').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.dept-nav a').forEach(a => a.classList.remove('active'));
+
+            const targetPage = document.getElementById('page-' + pageId);
+            if (targetPage) targetPage.classList.add('active');
+
+            const targetNav = document.getElementById('nav-' + pageId);
+            if (targetNav) targetNav.classList.add('active');
+        }
+
+        function fillRegisterDemo() {
+            document.getElementById('reg-name').value = "Abhijith K";
+            document.getElementById('reg-regno').value = "23MCA1042";
+            document.getElementById('reg-email').value = "abhijith@university.edu";
+            document.getElementById('reg-pass').value = "secret123";
+        }
+
+        function fillLoginDemo() {
+            document.getElementById('login-email').value = "abhijith@university.edu";
+            document.getElementById('login-pass').value = "secret123";
+        }
+
+        function handleRegister(e) {
+            e.preventDefault();
+            const user = {
+                name: document.getElementById('reg-name').value.trim(),
+                regno: document.getElementById('reg-regno').value.trim(),
+                email: document.getElementById('reg-email').value.trim()
+            };
+            currentUser = user;
+            localStorage.setItem('iwt_demo_user', JSON.stringify(user));
+            updateAuthState();
+            showPage('dashboard');
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value.trim();
+            currentUser = {
+                name: "Abhijith K",
+                regno: "23MCA1042",
+                email: email
+            };
+            localStorage.setItem('iwt_demo_user', JSON.stringify(currentUser));
+            updateAuthState();
+            showPage('dashboard');
+        }
+
+        function handleLogout() {
+            currentUser = null;
+            localStorage.removeItem('iwt_demo_user');
+            updateAuthState();
+            showPage('home');
+        }
+
+        // Init
+        updateAuthState();
+    </script>
+</body>
+</html>

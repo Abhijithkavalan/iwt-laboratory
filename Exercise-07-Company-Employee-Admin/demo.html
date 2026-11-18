@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Role-Based Company Portal | Interactive Demo</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .demo-banner {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: #ffffff;
+            padding: 12px 20px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .demo-banner a {
+            color: #fef08a;
+            font-weight: 600;
+            text-decoration: underline;
+        }
+        .role-switcher {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+            background: #ffffff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .role-btn {
+            border: 2px solid transparent;
+            padding: 10px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        .role-btn-emp {
+            background: #eff6ff;
+            color: #1d4ed8;
+            border-color: #93c5fd;
+        }
+        .role-btn-emp.active {
+            background: #1d4ed8;
+            color: #ffffff;
+        }
+        .role-btn-admin {
+            background: #fdf2f8;
+            color: #be185d;
+            border-color: #f472b6;
+        }
+        .role-btn-admin.active {
+            background: #be185d;
+            color: #ffffff;
+        }
+        .view-panel {
+            display: none;
+        }
+        .view-panel.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Demo Banner -->
+    <div class="demo-banner">
+        <div>
+            <span>⚡ <strong>Interactive Web Preview:</strong> Mutual-Oversight RBAC Simulation (No server required).</span>
+        </div>
+        <div>
+            <a href="../index.html">← Master Portal</a> | 
+            <a href="index.php">Run PHP / MySQL Backend →</a>
+        </div>
+    </div>
+
+    <!-- Header Navigation -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="demo.html" class="brand">🏢 Enterprise RBAC Portal (Demo)</a>
+            <ul class="nav-links">
+                <li><span id="navRoleBadge" style="background:#4f46e5; color:white; padding:4px 10px; border-radius:4px; font-size:12px; font-weight:700;">Role: Employee</span></li>
+                <li><a href="#" onclick="setRole('guest')">Sign Out</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="container" style="max-width: 1100px; margin: 25px auto; padding: 0 20px;">
+
+        <!-- Quick Role Switcher -->
+        <div class="role-switcher">
+            <span style="font-weight: 700; color: #334155;">Switch Testing Persona:</span>
+            <button class="role-btn role-btn-emp active" id="btnEmpRole" onclick="setRole('employee')">
+                👤 Logged In as Employee (Priya Sharma)
+            </button>
+            <button class="role-btn role-btn-admin" id="btnAdminRole" onclick="setRole('admin')">
+                🛡️ Logged In as Admin (Vikram Malhotra)
+            </button>
+            <button class="role-btn" style="background: #fef2f2; color: #b91c1c; border-color: #fca5a5;" onclick="testUnauthorized()">
+                🚫 Test Unauthorized Route Guard
+            </button>
+        </div>
+
+        <div id="securityAlert"></div>
+
+        <!-- 1. Employee View (Condition 1: Mutual Oversight -> Displays Admin Details) -->
+        <div id="panel-employee" class="view-panel active">
+            <div class="card" style="margin-bottom: 25px;">
+                <div class="card-header" style="background: #eff6ff; border-left: 5px solid #2563eb; padding: 15px 20px; border-radius: 6px;">
+                    <h2 style="color: #1e3a8a; margin: 0 0 5px 0;">Employee Portal: Mutual Oversight Console</h2>
+                    <p style="margin: 0; color: #3b82f6; font-size: 14px;">
+                        Logged in as: <strong>Priya Sharma</strong> (EMP-8821) | Designation: <strong>Senior Systems Analyst</strong>
+                    </p>
+                    <p style="margin: 8px 0 0 0; color: #1e293b; font-size: 13px;">
+                        <strong>Curriculum Condition 1 Met:</strong> Employees are authenticated and provided direct oversight view of <strong>all Company Administrators</strong>.
+                    </p>
+                </div>
+            </div>
+
+            <h3>Executive &amp; Administrative Management Roster</h3>
+            <div class="table-responsive" style="background: white; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); overflow: hidden;">
+                <table class="data-table" style="width: 100%; border-collapse: collapse;">
+                    <thead style="background: #f8fafc; text-align: left;">
+                        <tr>
+                            <th style="padding: 12px 16px; border-bottom: 2px solid #e2e8f0;">Admin Code</th>
+                            <th style="padding: 12px 16px; border-bottom: 2px solid #e2e8f0;">Administrator Name</th>
+                            <th style="padding: 12px 16px; border-bottom: 2px solid #e2e8f0;">Designation / Title</th>
+                            <th style="padding: 12px 16px; border-bottom: 2px solid #e2e8f0;">Office Room</th>
+                            <th style="padding: 12px 16px; border-bottom: 2px solid #e2e8f0;">Core Responsibilities</th>
+                            <th style="padding: 12px 16px; border-bottom: 2px solid #e2e8f0;">Emergency Hotline</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid #f1f5f9;">
+                            <td style="padding: 14px 16px;"><strong>ADM-001</strong></td>
+                            <td style="padding: 14px 16px;">Vikram Malhotra</td>
+                            <td style="padding: 14px 16px;"><span class="badge-tag" style="background:#dbeafe; color:#1e40af; padding:4px 8px; border-radius:4px; font-size:12px;">VP of Engineering</span></td>
+                            <td style="padding: 14px 16px;">Room 402, North Wing</td>
+                            <td style="padding: 14px 16px;">Engineering Governance, Architecture Reviews, Escalations</td>
+                            <td style="padding: 14px 16px;">+91 98450-01122</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #f1f5f9;">
+                            <td style="padding: 14px 16px;"><strong>ADM-002</strong></td>
+                            <td style="padding: 14px 16px;">Sunita Deshmukh</td>
+                            <td style="padding: 14px 16px;"><span class="badge-tag" style="background:#fce7f3; color:#9d174d; padding:4px 8px; border-radius:4px; font-size:12px;">Chief People Officer</span></td>
+                            <td style="padding: 14px 16px;">Room 205, South Wing</td>
+                            <td style="padding: 14px 16px;">HR Grievance Redressal, Compliance, Welfare Operations</td>
+                            <td style="padding: 14px 16px;">+91 98450-01133</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 14px 16px;"><strong>ADM-003</strong></td>
+                            <td style="padding: 14px 16px;">Raghavan Nair</td>
+                            <td style="padding: 14px 16px;"><span class="badge-tag" style="background:#fef3c7; color:#92400e; padding:4px 8px; border-radius:4px; font-size:12px;">Chief Information Security Officer</span></td>
+                            <td style="padding: 14px 16px;">Room 510, IT Tower</td>
+                            <td style="padding: 14px 16px;">Infrastructure Security, Audit Access, Zero-Trust Policies</td>
+                            <td style="padding: 14px 16px;">+91 98450-01144</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 2. Admin View (Condition 2: Mutual Oversight -> Displays Employee Details) -->
+        <div id="panel-admin" class="view-panel">
+            <div class="card" style="margin-bottom: 25px;">
+                <div class="card-header" style="background: #fdf2f8; border-left: 5px solid #db2777; padding: 15px 20px; border-radius: 6px;">
+                    <h2 style="color: #9d174d; margin: 0 0 5px 0;">Executive Administration Command Console</h2>
+                    <p style="margin: 0; color: #be185d; font-size: 14px;">
+                        Logged in as: <strong>Vikram Malhotra</strong> (ADM-001) | Security Level: <strong>Level 5 Super-Admin</strong>
+                    </p>
+                    <p style="margin: 8px 0 0 0; color: #1e293b; font-size: 13px;">
+                        <strong>Curriculum Condition 2 Met:</strong> Administrators are authenticated and provided full management view of <strong>all Company Employees</strong>.
+                    </p>
+                </div>
+            </div>
+
+            <h3>Total Registered Workforce (3 Personnel)</h3>
+            <div class="table-responsive" style="background: white; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); overflow: hidden;">
+                <table class="data-table" style="width: 100%; border-collapse: collapse;">
+                    <thead style="background: #f8fafc; text-align: left;">
+                        <tr>
+                            <th style="padding: 12px 16px; border-bottom: 2px solid #e2e8f0;">Emp Code</th>
+                            <th style="padding: 12px 16px; border-bottom: 2px solid #e2e8f0;">Full Name</th>
+                            <th style="padding: 12px 16px; border-bottom: 2px solid #e2e8f0;">Designation</th>
+                            <th style="padding: 12px 16px; border-bottom: 2px solid #e2e8f0;">Department</th>
+                            <th style="padding: 12px 16px; border-bottom: 2px solid #e2e8f0;">Salary (₹)</th>
+                            <th style="padding: 12px 16px; border-bottom: 2px solid #e2e8f0;">Joining Date</th>
+                            <th style="padding: 12px 16px; border-bottom: 2px solid #e2e8f0;">Performance</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid #f1f5f9;">
+                            <td style="padding: 14px 16px;"><strong>EMP-8821</strong></td>
+                            <td style="padding: 14px 16px;">Priya Sharma</td>
+                            <td style="padding: 14px 16px;">Senior Systems Analyst</td>
+                            <td style="padding: 14px 16px;"><span class="badge-tag" style="background:#e0e7ff; color:#3730a3; padding:4px 8px; border-radius:4px; font-size:12px;">Engineering</span></td>
+                            <td style="padding: 14px 16px;">₹95,000</td>
+                            <td style="padding: 14px 16px;">2022-04-15</td>
+                            <td style="padding: 14px 16px; color:#16a34a; font-weight:700;">★ 4.9 (Outstanding)</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #f1f5f9;">
+                            <td style="padding: 14px 16px;"><strong>EMP-8822</strong></td>
+                            <td style="padding: 14px 16px;">Aditya Verma</td>
+                            <td style="padding: 14px 16px;">Cloud Reliability Engineer</td>
+                            <td style="padding: 14px 16px;"><span class="badge-tag" style="background:#e0e7ff; color:#3730a3; padding:4px 8px; border-radius:4px; font-size:12px;">Infrastructure</span></td>
+                            <td style="padding: 14px 16px;">₹88,000</td>
+                            <td style="padding: 14px 16px;">2023-01-10</td>
+                            <td style="padding: 14px 16px; color:#16a34a; font-weight:700;">★ 4.7 (Exceeds)</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 14px 16px;"><strong>EMP-8823</strong></td>
+                            <td style="padding: 14px 16px;">Sneha Roy</td>
+                            <td style="padding: 14px 16px;">Product Quality Specialist</td>
+                            <td style="padding: 14px 16px;"><span class="badge-tag" style="background:#e0e7ff; color:#3730a3; padding:4px 8px; border-radius:4px; font-size:12px;">Quality Assurance</span></td>
+                            <td style="padding: 14px 16px;">₹76,000</td>
+                            <td style="padding: 14px 16px;">2023-08-01</td>
+                            <td style="padding: 14px 16px; color:#2563eb; font-weight:700;">★ 4.5 (Proficient)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function setRole(role) {
+            document.getElementById('securityAlert').innerHTML = '';
+            const btnEmp = document.getElementById('btnEmpRole');
+            const btnAdmin = document.getElementById('btnAdminRole');
+            const panelEmp = document.getElementById('panel-employee');
+            const panelAdmin = document.getElementById('panel-admin');
+            const badge = document.getElementById('navRoleBadge');
+
+            if (role === 'admin') {
+                btnEmp.classList.remove('active');
+                btnAdmin.classList.add('active');
+                panelEmp.classList.remove('active');
+                panelAdmin.classList.add('active');
+                badge.textContent = "Role: Admin";
+                badge.style.background = "#be185d";
+            } else if (role === 'employee') {
+                btnEmp.classList.add('active');
+                btnAdmin.classList.remove('active');
+                panelEmp.classList.add('active');
+                panelAdmin.classList.remove('active');
+                badge.textContent = "Role: Employee";
+                badge.style.background = "#1d4ed8";
+            } else {
+                alert("Signed out of demo session.");
+                setRole('employee');
+            }
+        }
+
+        function testUnauthorized() {
+            setRole('employee');
+            const alertBox = document.getElementById('securityAlert');
+            alertBox.innerHTML = `
+                <div style="background: #fee2e2; border-left: 5px solid #ef4444; color: #991b1b; padding: 15px; border-radius: 6px; margin-bottom: 20px;">
+                    <strong>🛡️ Route Guard Interception:</strong>
+                    HTTP 403 Forbidden - Role 'employee' is blocked by PHP session middleware from opening <code>admin_dashboard.php</code>.
+                </div>`;
+            setTimeout(() => { alertBox.innerHTML = ''; }, 5000);
+        }
+    </script>
+</body>
+</html>

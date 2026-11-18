@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IWT Laboratory Portal | All 10 Laboratory Exercises</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --primary-light: #dbeafe;
+            --accent: #8b5cf6;
+            --bg-page: #0f172a;
+            --bg-card: #1e293b;
+            --bg-card-hover: #273549;
+            --text-title: #f8fafc;
+            --text-body: #94a3b8;
+            --border: #334155;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --php-color: #8b5cf6;
+            --ajax-color: #06b6d4;
+            --js-color: #eab308;
+            --html-color: #f97316;
+            --radius: 12px;
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-page);
+            color: var(--text-body);
+            line-height: 1.6;
+            padding-bottom: 60px;
+        }
+
+        /* Top Notification Bar */
+        .top-status-bar {
+            background: #1e293b;
+            border-bottom: 1px solid var(--border);
+            padding: 10px 20px;
+            font-size: 13px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .server-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 12px;
+        }
+
+        .server-badge.online {
+            background: rgba(16, 185, 129, 0.15);
+            color: #34d399;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .server-badge.filemode {
+            background: rgba(245, 158, 11, 0.15);
+            color: #fbbf24;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        /* Hero Header */
+        .hero {
+            background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+            padding: 50px 20px 35px 20px;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .hero-container {
+            max-width: 950px;
+            margin: 0 auto;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.2), rgba(139, 92, 246, 0.2));
+            color: #93c5fd;
+            border: 1px solid rgba(147, 197, 253, 0.3);
+            padding: 4px 14px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            letter-spacing: 0.5px;
+        }
+
+        .hero h1 {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--text-title);
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, #60a5fa, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 16px;
+            color: #94a3b8;
+            max-width: 720px;
+            margin: 0 auto 25px auto;
+        }
+
+        /* Stats Bar */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            max-width: 900px;
+            margin: 0 auto 30px auto;
+        }
+
+        .stat-card {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 15px;
+            text-align: center;
+        }
+
+        .stat-num {
+            font-size: 26px;
+            font-weight: 800;
+            color: var(--text-title);
+        }
+
+        .stat-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #64748b;
+            margin-top: 4px;
+        }
+
+        /* Filter Controls */
+        .filter-section {
+            max-width: 1200px;
+            margin: 30px auto 20px auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: #1e293b;
+            color: #94a3b8;
+            border: 1px solid var(--border);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .filter-btn:hover {
+            background: #273549;
+            color: var(--text-title);
+        }
+
+        .filter-btn.active {
+            background: var(--primary);
+            color: #ffffff;
+            border-color: var(--primary);
+        }
+
+        .search-input {
+            background: #1e293b;
+            border: 1px solid var(--border);
+            color: #ffffff;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            width: 260px;
+            outline: none;
+        }
+
+        .search-input:focus {
+            border-color: var(--primary);
+        }
+
+        /* Exercises Grid */
+        .grid-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 25px;
+        }
+
+        .exercise-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: var(--shadow);
+            transition: transform 0.2s ease, border-color 0.2s ease;
+            position: relative;
+        }
+
+        .exercise-card:hover {
+            transform: translateY(-4px);
+            border-color: #475569;
+            background: var(--bg-card-hover);
+        }
+
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 14px;
+        }
+
+        .ex-number {
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            padding: 4px 10px;
+            border-radius: 6px;
+            background: #0f172a;
+            color: #38bdf8;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+        }
+
+        .category-badge {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+            text-transform: uppercase;
+        }
+
+        .badge-html { background: rgba(249, 115, 22, 0.15); color: #fb923c; border: 1px solid rgba(249, 115, 22, 0.3); }
+        .badge-js { background: rgba(234, 179, 8, 0.15); color: #facc15; border: 1px solid rgba(234, 179, 8, 0.3); }
+        .badge-php { background: rgba(139, 92, 246, 0.15); color: #c084fc; border: 1px solid rgba(139, 92, 246, 0.3); }
+        .badge-ajax { background: rgba(6, 182, 212, 0.15); color: #22d3ee; border: 1px solid rgba(6, 182, 212, 0.3); }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-title);
+            margin-bottom: 8px;
+        }
+
+        .card-desc {
+            font-size: 14px;
+            color: #94a3b8;
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin-bottom: 18px;
+            font-size: 13px;
+        }
+
+        .feature-list li {
+            position: relative;
+            padding-left: 18px;
+            margin-bottom: 6px;
+            color: #cbd5e1;
+        }
+
+        .feature-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 20px;
+        }
+
+        .tech-pill {
+            background: #0f172a;
+            color: #94a3b8;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        /* Card Actions */
+        .card-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            border-top: 1px solid var(--border);
+            padding-top: 16px;
+        }
+
+        .btn-row {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 9px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: #ffffff;
+            flex: 1;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn-secondary {
+            background: #334155;
+            color: #f1f5f9;
+        }
+
+        .btn-secondary:hover {
+            background: #475569;
+        }
+
+        .btn-demo {
+            background: linear-gradient(135deg, #059669, #10b981);
+            color: #ffffff;
+            flex: 1;
+        }
+
+        .btn-demo:hover {
+            opacity: 0.95;
+        }
+
+        .btn-php {
+            background: linear-gradient(135deg, #6d28d9, #8b5cf6);
+            color: #ffffff;
+            flex: 1;
+        }
+
+        .btn-php:hover {
+            opacity: 0.95;
+        }
+
+        /* Quick Server Banner Box */
+        .server-guide-box {
+            max-width: 1200px;
+            margin: 40px auto 0 auto;
+            padding: 0 20px;
+        }
+
+        .server-guide-inner {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            border: 1px solid #334155;
+            border-left: 5px solid var(--primary);
+            border-radius: var(--radius);
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .server-guide-inner h3 {
+            color: var(--text-title);
+            font-size: 18px;
+            margin-bottom: 6px;
+        }
+
+        .server-guide-inner p {
+            font-size: 14px;
+            color: #94a3b8;
+            max-width: 680px;
+        }
+
+        .code-snippet {
+            background: #090d16;
+            color: #38bdf8;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 13px;
+            border: 1px solid #1e293b;
+        }
+
+        /* Live Preview Modal */
+        .preview-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 1000;
+            backdrop-filter: blur(4px);
+        }
+
+        .preview-modal.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-header {
+            background: #1e293b;
+            padding: 12px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .modal-title {
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .modal-close-btn {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 13px;
+        }
+
+        .modal-iframe-container {
+            flex: 1;
+            width: 100%;
+            background: #ffffff;
+        }
+
+        .modal-iframe-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Footer */
+        footer {
+            max-width: 1200px;
+            margin: 50px auto 0 auto;
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid var(--border);
+            font-size: 13px;
+            color: #64748b;
+        }
+
+        @media (max-width: 768px) {
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+            .hero h1 {
+                font-size: 28px;
+            }
+            .btn-row {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Protocol & Server Status Bar -->
+    <div class="top-status-bar">
+        <div>
+            <span>📍 Master Laboratory Manual &amp; Execution Environment</span>
+        </div>
+        <div id="statusBadgeContainer">
+            <span class="server-badge online" id="statusBadge">Checking server protocol...</span>
+        </div>
+    </div>
+
+    <!-- Hero Header -->
+    <header class="hero">
+        <div class="hero-container">
+            <span class="hero-tag">MCA Curriculum 2025–2026</span>
+            <h1>Internet &amp; Web Technologies <span>Laboratory</span></h1>
+            <p>A unified suite containing all 10 laboratory exercises with full static HTML/CSS front-ends, JavaScript engines, AJAX telemetries, and PHP &amp; MySQL dynamic web systems.</p>
+
+            <!-- Statistics Grid -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-num" style="color: #60a5fa;">10</div>
+                    <div class="stat-label">Total Exercises</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-num" style="color: #f97316;">04</div>
+                    <div class="stat-label">Front-End (HTML/CSS/JS)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-num" style="color: #c084fc;">04</div>
+                    <div class="stat-label">PHP &amp; MySQL Full-Stack</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-num" style="color: #22d3ee;">02</div>
+                    <div class="stat-label">AJAX &amp; Web APIs</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Filter & Search Controls -->
+    <div class="filter-section">
+        <div class="filter-tabs">
+            <button class="filter-btn active" onclick="filterExercises('all', this)">All Exercises (10)</button>
+            <button class="filter-btn" onclick="filterExercises('frontend', this)">Front-End (Ex 1–4)</button>
+            <button class="filter-btn" onclick="filterExercises('backend', this)">PHP &amp; MySQL (Ex 5–8)</button>
+            <button class="filter-btn" onclick="filterExercises('ajax', this)">AJAX &amp; APIs (Ex 9–10)</button>
+        </div>
+        <div>
+            <input type="text" id="searchInput" class="search-input" placeholder="🔍 Search exercises or topics..." oninput="handleSearch()">
+        </div>
+    </div>
+
+    <!-- Main Exercise Grid -->
+    <main class="grid-container" id="exerciseGrid">
+
+        <!-- Exercise 01: Resume -->
+        <div class="exercise-card" data-category="frontend" data-keywords="resume cv profile html5 semantic education skills declaration">
+            <div>
+                <div class="card-top">
+                    <span class="ex-number">EXERCISE 01</span>
+                    <span class="category-badge badge-html">HTML5 Semantic</span>
+                </div>
+                <h2 class="card-title">Student Resume Webpage</h2>
+                <p class="card-desc">Professional student CV built using semantic HTML5 elements, tabular qualifications, and structured declaration.</p>
+                <ul class="feature-list">
+                    <li>Semantic layout (&lt;header&gt;, &lt;section&gt;, &lt;footer&gt;)</li>
+                    <li>Profile photo &amp; categorized qualifications table</li>
+                    <li>Technical skills, projects &amp; signed declaration</li>
+                </ul>
+                <div class="tech-tags">
+                    <span class="tech-pill">HTML5</span>
+                    <span class="tech-pill">CSS3</span>
+                    <span class="tech-pill">Zero Server Required</span>
+                </div>
+            </div>
+            <div class="card-actions">
+                <div class="btn-row">
+                    <a href="Exercise-01-Resume/index.html" class="btn btn-primary" target="_blank">🚀 Open Full Page</a>
+                    <button class="btn btn-secondary" onclick="openPreview('Exercise 01: Student Resume', 'Exercise-01-Resume/index.html')">👁️ Preview</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Exercise 02: Shopping -->
+        <div class="exercise-card" data-category="frontend" data-keywords="shopping store ecommerce shopease cart products catalog css3">
+            <div>
+                <div class="card-top">
+                    <span class="ex-number">EXERCISE 02</span>
+                    <span class="category-badge badge-html">CSS3 &amp; Responsive</span>
+                </div>
+                <h2 class="card-title">ShopEase Online Shopping Store</h2>
+                <p class="card-desc">Responsive e-commerce storefront featuring 6 local products with discount badges, star ratings, and interactive cart badge.</p>
+                <ul class="feature-list">
+                    <li>Sticky navigation bar &amp; announcement banner</li>
+                    <li>6 catalog products with high-res local images</li>
+                    <li>Interactive cart counter &amp; toast alerts</li>
+                </ul>
+                <div class="tech-tags">
+                    <span class="tech-pill">HTML5</span>
+                    <span class="tech-pill">CSS3 Flex/Grid</span>
+                    <span class="tech-pill">JavaScript</span>
+                </div>
+            </div>
+            <div class="card-actions">
+                <div class="btn-row">
+                    <a href="Exercise-02-Online-Shopping/index.html" class="btn btn-primary" target="_blank">🚀 Open Full Page</a>
+                    <button class="btn btn-secondary" onclick="openPreview('Exercise 02: ShopEase Store', 'Exercise-02-Online-Shopping/index.html')">👁️ Preview</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Exercise 03: Quiz -->
+        <div class="exercise-card" data-category="frontend" data-keywords="quiz mcq test assessment exam score web tech javascript">
+            <div>
+                <div class="card-top">
+                    <span class="ex-number">EXERCISE 03</span>
+                    <span class="category-badge badge-js">JavaScript ES6</span>
+                </div>
+                <h2 class="card-title">20-Question MCQ Quiz Engine</h2>
+                <p class="card-desc">Client-side automated quiz platform covering Internet &amp; Web Technologies with immediate scoring, grading, and answer explanations.</p>
+                <ul class="feature-list">
+                    <li>Exactly 20 questions with real-time progress tracker</li>
+                    <li>Automated scoring (Correct, Wrong, Unattempted)</li>
+                    <li>Complete post-quiz answer key with explanations</li>
+                </ul>
+                <div class="tech-tags">
+                    <span class="tech-pill">JavaScript ES6</span>
+                    <span class="tech-pill">DOM Manipulation</span>
+                    <span class="tech-pill">CSS3</span>
+                </div>
+            </div>
+            <div class="card-actions">
+                <div class="btn-row">
+                    <a href="Exercise-03-Quiz/index.html" class="btn btn-primary" target="_blank">🚀 Open Full Page</a>
+                    <button class="btn btn-secondary" onclick="openPreview('Exercise 03: MCQ Quiz Engine', 'Exercise-03-Quiz/index.html')">👁️ Preview</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Exercise 04: Calculator -->
+        <div class="exercise-card" data-category="frontend" data-keywords="calculator scientific math trigonometry oop javascript arithmetic">
+            <div>
+                <div class="card-top">
+                    <span class="ex-number">EXERCISE 04</span>
+                    <span class="category-badge badge-js">OOP JavaScript</span>
+                </div>
+                <h2 class="card-title">Scientific &amp; Basic Calculator</h2>
+                <p class="card-desc">Dual-line scientific calculator supporting basic arithmetic, trigonometric functions, logarithms, roots, DEG/RAD, and calculation history.</p>
+                <ul class="feature-list">
+                    <li>Trig (sin, cos, tan), log, ln, sqrt, xʸ &amp; constants (π, e)</li>
+                    <li>Keyboard event listeners &amp; division by zero protection</li>
+                    <li>Interactive live history log with replay recall</li>
+                </ul>
+                <div class="tech-tags">
+                    <span class="tech-pill">OOP JavaScript</span>
+                    <span class="tech-pill">CSS Grid</span>
+                    <span class="tech-pill">Math Engine</span>
+                </div>
+            </div>
+            <div class="card-actions">
+                <div class="btn-row">
+                    <a href="Exercise-04-Calculator/index.html" class="btn btn-primary" target="_blank">🚀 Open Full Page</a>
+                    <button class="btn btn-secondary" onclick="openPreview('Exercise 04: Scientific Calculator', 'Exercise-04-Calculator/index.html')">👁️ Preview</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Exercise 05: Student/Employee Form -->
+        <div class="exercise-card" data-category="backend" data-keywords="php mysql database employee form registration validation prepared statements">
+            <div>
+                <div class="card-top">
+                    <span class="ex-number">EXERCISE 05</span>
+                    <span class="category-badge badge-php">PHP &amp; MySQL</span>
+                </div>
+                <h2 class="card-title">Employee Database Form</h2>
+                <p class="card-desc">10-field employee registration system with client/server validation, prepared statement insertions, and phpMyAdmin MySQL integration.</p>
+                <ul class="feature-list">
+                    <li>10 mandatory attributes with regex validation</li>
+                    <li>Duplicate Employee ID / Email interception</li>
+                    <li>Tabular directory view with search and filters</li>
+                </ul>
+                <div class="tech-tags">
+                    <span class="tech-pill">PHP 8</span>
+                    <span class="tech-pill">MySQL (mysqli)</span>
+                    <span class="tech-pill">Prepared Statements</span>
+                </div>
+            </div>
+            <div class="card-actions">
+                <div class="btn-row">
+                    <a href="Exercise-05-Student-Form-Database/demo.html" class="btn btn-demo" target="_blank">⚡ Interactive Demo</a>
+                    <button class="btn btn-secondary" onclick="openPreview('Exercise 05: Interactive Demo', 'Exercise-05-Student-Form-Database/demo.html')">👁️ Preview</button>
+                </div>
+                <a href="Exercise-05-Student-Form-Database/index.php" class="btn btn-php" target="_blank">🐘 Run on PHP Localhost (index.php)</a>
+            </div>
+        </div>
+
+        <!-- Exercise 06: Dynamic Website -->
+        <div class="exercise-card" data-category="backend" data-keywords="php mysql session auth login register dashboard department portal">
+            <div>
+                <div class="card-top">
+                    <span class="ex-number">EXERCISE 06</span>
+                    <span class="category-badge badge-php">PHP &amp; Sessions</span>
+                </div>
+                <h2 class="card-title">Department Dynamic Portal</h2>
+                <p class="card-desc">Multi-page department website featuring bcrypt password hashing, session-based authentication, faculty directory, and student dashboard.</p>
+                <ul class="feature-list">
+                    <li>Pages: Home, About Us, Register, Login, Dashboard</li>
+                    <li>Secure password hashing (bcrypt) &amp; session guards</li>
+                    <li>Semester lab curriculum &amp; timetable dashboard</li>
+                </ul>
+                <div class="tech-tags">
+                    <span class="tech-pill">PHP Sessions</span>
+                    <span class="tech-pill">Bcrypt Hashing</span>
+                    <span class="tech-pill">Auth Guard</span>
+                </div>
+            </div>
+            <div class="card-actions">
+                <div class="btn-row">
+                    <a href="Exercise-06-Dynamic-Website/demo.html" class="btn btn-demo" target="_blank">⚡ Interactive Demo</a>
+                    <button class="btn btn-secondary" onclick="openPreview('Exercise 06: Interactive Demo', 'Exercise-06-Dynamic-Website/demo.html')">👁️ Preview</button>
+                </div>
+                <a href="Exercise-06-Dynamic-Website/index.php" class="btn btn-php" target="_blank">🐘 Run on PHP Localhost (index.php)</a>
+            </div>
+        </div>
+
+        <!-- Exercise 07: Company Employee Admin -->
+        <div class="exercise-card" data-category="backend" data-keywords="rbac role based employee admin mutual oversight access control php mysql">
+            <div>
+                <div class="card-top">
+                    <span class="ex-number">EXERCISE 07</span>
+                    <span class="category-badge badge-php">PHP RBAC</span>
+                </div>
+                <h2 class="card-title">Company RBAC Portal</h2>
+                <p class="card-desc">Role-based mutual oversight system: authenticated Employees view Admin details, while Admins manage all Employee records.</p>
+                <ul class="feature-list">
+                    <li>Condition 1: Logged-in Employee views Admin roster</li>
+                    <li>Condition 2: Logged-in Admin manages Employee workforce</li>
+                    <li>Strict role route protection blocking unauthorized access</li>
+                </ul>
+                <div class="tech-tags">
+                    <span class="tech-pill">RBAC Governance</span>
+                    <span class="tech-pill">Mutual Oversight</span>
+                    <span class="tech-pill">PHP &amp; MySQL</span>
+                </div>
+            </div>
+            <div class="card-actions">
+                <div class="btn-row">
+                    <a href="Exercise-07-Company-Employee-Admin/demo.html" class="btn btn-demo" target="_blank">⚡ Interactive Demo</a>
+                    <button class="btn btn-secondary" onclick="openPreview('Exercise 07: RBAC Portal', 'Exercise-07-Company-Employee-Admin/demo.html')">👁️ Preview</button>
+                </div>
+                <a href="Exercise-07-Company-Employee-Admin/index.php" class="btn btn-php" target="_blank">🐘 Run on PHP Localhost (index.php)</a>
+            </div>
+        </div>
+
+        <!-- Exercise 08: Contact Management -->
+        <div class="exercise-card" data-category="backend" data-keywords="crud contact management create read update delete search filter php mysql">
+            <div>
+                <div class="card-top">
+                    <span class="ex-number">EXERCISE 08</span>
+                    <span class="category-badge badge-php">PHP CRUD</span>
+                </div>
+                <h2 class="card-title">Contact Management (CRUD)</h2>
+                <p class="card-desc">Complete Create, Read, Update, Delete contact management system featuring instant search, category filtering, and confirmation alerts.</p>
+                <ul class="feature-list">
+                    <li>Full CRUD lifecycle with edit modals &amp; delete confirmation</li>
+                    <li>Filter by categories (Personal, Professional, Academic)</li>
+                    <li>Live real-time search across names, emails, and phones</li>
+                </ul>
+                <div class="tech-tags">
+                    <span class="tech-pill">CRUD Lifecycle</span>
+                    <span class="tech-pill">Prepared Statements</span>
+                    <span class="tech-pill">Search &amp; Filter</span>
+                </div>
+            </div>
+            <div class="card-actions">
+                <div class="btn-row">
+                    <a href="Exercise-08-Contact-Management/demo.html" class="btn btn-demo" target="_blank">⚡ Interactive Demo</a>
+                    <button class="btn btn-secondary" onclick="openPreview('Exercise 08: Contact CRUD', 'Exercise-08-Contact-Management/demo.html')">👁️ Preview</button>
+                </div>
+                <a href="Exercise-08-Contact-Management/index.php" class="btn btn-php" target="_blank">🐘 Run on PHP Localhost (index.php)</a>
+            </div>
+        </div>
+
+        <!-- Exercise 09: AJAX Weather -->
+        <div class="exercise-card" data-category="ajax" data-keywords="ajax weather fetch xhr json asynchronous api telemetry">
+            <div>
+                <div class="card-top">
+                    <span class="ex-number">EXERCISE 09</span>
+                    <span class="category-badge badge-ajax">AJAX &amp; Fetch API</span>
+                </div>
+                <h2 class="card-title">Asynchronous Weather Telemetry</h2>
+                <p class="card-desc">Asynchronous weather retrieval demonstrating both modern Fetch API and traditional XMLHttpRequest (XHR) without page refresh.</p>
+                <ul class="feature-list">
+                    <li>Dual AJAX execution (Fetch API &amp; XMLHttpRequest)</li>
+                    <li>Quick-select city chips &amp; animated loading spinner</li>
+                    <li>Offline resilient dataset with automatic CORS fallback</li>
+                </ul>
+                <div class="tech-tags">
+                    <span class="tech-pill">Fetch API</span>
+                    <span class="tech-pill">XMLHttpRequest</span>
+                    <span class="tech-pill">JSON Telemetry</span>
+                </div>
+            </div>
+            <div class="card-actions">
+                <div class="btn-row">
+                    <a href="Exercise-09-AJAX-Weather/index.html" class="btn btn-primary" target="_blank">🚀 Open Full Page</a>
+                    <button class="btn btn-secondary" onclick="openPreview('Exercise 09: AJAX Weather', 'Exercise-09-AJAX-Weather/index.html')">👁️ Preview</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Exercise 10: jQuery Books -->
+        <div class="exercise-card" data-category="ajax" data-keywords="jquery ajax books json catalog library dynamic dom">
+            <div>
+                <div class="card-top">
+                    <span class="ex-number">EXERCISE 10</span>
+                    <span class="category-badge badge-ajax">jQuery $.ajax()</span>
+                </div>
+                <h2 class="card-title">jQuery Books Catalog Explorer</h2>
+                <p class="card-desc">Asynchronous JSON data retrieval and dynamic card rendering using jQuery v3.7.1 $.ajax() with live search and category filtering.</p>
+                <ul class="feature-list">
+                    <li>Official jQuery v3.7.1 bundled locally for offline execution</li>
+                    <li>$.ajax() with beforeSend, success, error, &amp; complete</li>
+                    <li>Dynamic card rendering, category dropdown, &amp; live search</li>
+                </ul>
+                <div class="tech-tags">
+                    <span class="tech-pill">jQuery v3.7.1</span>
+                    <span class="tech-pill">$.ajax() GET</span>
+                    <span class="tech-pill">Dynamic DOM</span>
+                </div>
+            </div>
+            <div class="card-actions">
+                <div class="btn-row">
+                    <a href="Exercise-10-jQuery-Books/index.html" class="btn btn-primary" target="_blank">🚀 Open Full Page</a>
+                    <button class="btn btn-secondary" onclick="openPreview('Exercise 10: jQuery Books Explorer', 'Exercise-10-jQuery-Books/index.html')">👁️ Preview</button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- 1-Click Server Guide Box -->
+    <div class="server-guide-box">
+        <div class="server-guide-inner">
+            <div>
+                <h3>💡 How to Run with Full PHP &amp; MySQL Backend</h3>
+                <p>Exercises 1–4, 9, 10 and all Interactive Demos run directly in any browser. To execute the native PHP backend (Exercises 5–8) with MySQL, double-click <strong>start-website.bat</strong> or execute:</p>
+            </div>
+            <div>
+                <div class="code-snippet">C:\xampp\php\php.exe -S 127.0.0.1:8000</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Live Preview Modal -->
+    <div class="preview-modal" id="previewModal">
+        <div class="modal-header">
+            <span class="modal-title" id="modalTitle">Exercise Preview</span>
+            <div class="modal-actions">
+                <a href="#" id="modalOpenExternal" target="_blank" class="btn btn-secondary" style="font-size: 12px; padding: 4px 10px;">↗ Open in New Tab</a>
+                <button class="modal-close-btn" onclick="closePreview()">✕ Close Preview</button>
+            </div>
+        </div>
+        <div class="modal-iframe-container">
+            <iframe id="previewIframe" src=""></iframe>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>Internet &amp; Web Technologies (IWT) Laboratory Manual &bull; Master of Computer Applications (MCA) &bull; Academic Year 2025–2026</p>
+        <p style="margin-top: 6px; font-size: 12px; color: #475569;">All 10 laboratory exercises independently built and verified.</p>
+    </footer>
+
+    <script>
+        // Check current protocol and display badge
+        window.addEventListener('DOMContentLoaded', () => {
+            const badge = document.getElementById('statusBadge');
+            if (window.location.protocol.startsWith('http')) {
+                badge.className = "server-badge online";
+                badge.innerHTML = "🟢 Running via Web Server (All 10 Exercises &amp; PHP Ready)";
+            } else {
+                badge.className = "server-badge filemode";
+                badge.innerHTML = "🟡 Running via File Mode (Use '⚡ Interactive Demo' or double-click start-website.bat for PHP)";
+            }
+        });
+
+        // Filter tabs logic
+        function filterExercises(category, btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const cards = document.querySelectorAll('.exercise-card');
+            cards.forEach(card => {
+                if (category === 'all' || card.getAttribute('data-category') === category) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Live search logic
+        function handleSearch() {
+            const query = document.getElementById('searchInput').value.toLowerCase().trim();
+            const cards = document.querySelectorAll('.exercise-card');
+
+            cards.forEach(card => {
+                const title = card.querySelector('.card-title').textContent.toLowerCase();
+                const desc = card.querySelector('.card-desc').textContent.toLowerCase();
+                const keywords = (card.getAttribute('data-keywords') || '').toLowerCase();
+
+                if (title.includes(query) || desc.includes(query) || keywords.includes(query)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Preview modal
+        function openPreview(title, url) {
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalOpenExternal').href = url;
+            document.getElementById('previewIframe').src = url;
+            document.getElementById('previewModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closePreview() {
+            document.getElementById('previewModal').classList.remove('active');
+            document.getElementById('previewIframe').src = '';
+            document.body.style.overflow = 'auto';
+        }
+    </script>
+</body>
+</html>

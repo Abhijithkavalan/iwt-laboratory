@@ -28,6 +28,18 @@ $(document).ready(function () {
     // In-memory collection of loaded books for client-side filtering
     let cachedBooks = [];
 
+    // Embedded fallback dataset ensuring 100% offline functionality even under file:/// protocol where browser CORS blocks AJAX
+    const FALLBACK_BOOKS = [
+        { id: 1, title: "Clean Code: A Handbook of Agile Software Craftsmanship", author: "Robert C. Martin (Uncle Bob)", isbn: "978-0132350884", publication_year: 2008, category: "Software Engineering", rating: 4.8, pages: 464, description: "A legendary handbook on writing maintainable, readable, and elegant code, focusing on principles, patterns, and refactoring techniques." },
+        { id: 2, title: "Introduction to Algorithms (4th Edition)", author: "Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest, Clifford Stein", isbn: "978-0262046305", publication_year: 2022, category: "Computer Science", rating: 4.9, pages: 1312, description: "The quintessential comprehensive algorithm textbook covering divide-and-conquer, dynamic programming, greedy algorithms, and graph topologies." },
+        { id: 3, title: "Design Patterns: Elements of Reusable Object-Oriented Software", author: "Erich Gamma, Richard Helm, Ralph Johnson, John Vlissides (Gang of Four)", isbn: "978-0201633610", publication_year: 1994, category: "Architecture & Patterns", rating: 4.7, pages: 416, description: "Foundational classic cataloging 23 classic design patterns spanning creational, structural, and behavioral software architectures." },
+        { id: 4, title: "JavaScript: The Definitive Guide (Master the World's Most-Used Language)", author: "David Flanagan", isbn: "978-1491952023", publication_year: 2020, category: "Web Technologies", rating: 4.6, pages: 704, description: "Comprehensive guide for modern JavaScript (ES2020) including classes, modules, iterators, generators, Promises, async/await, and Web APIs." },
+        { id: 5, title: "The Pragmatic Programmer: Your Journey to Mastery", author: "David Thomas, Andrew Hunt", isbn: "978-0135957059", publication_year: 2019, category: "Software Engineering", rating: 4.9, pages: 352, description: "Timeless practical insights into software craftsmanship, career philosophy, automated testing, decoupling, and code orthogonality." },
+        { id: 6, title: "Database System Concepts (7th Edition)", author: "Abraham Silberschatz, Henry F. Korth, S. Sudarshan", isbn: "978-0078022159", publication_year: 2019, category: "Database Systems", rating: 4.7, pages: 1376, description: "Fundamental text presenting relational data models, SQL queries, indexing, B-Trees, transaction concurrency, recovery, and distributed databases." },
+        { id: 7, title: "Computer Networks (6th Edition)", author: "Andrew S. Tanenbaum, David J. Wetherall, Nick Feamster", isbn: "978-0136958505", publication_year: 2021, category: "Networking", rating: 4.8, pages: 960, description: "Authoritative guide to network protocols, TCP/IP stack layers, routing algorithms, socket programming, and modern 5G/Wi-Fi wireless systems." },
+        { id: 8, title: "Designing Data-Intensive Applications", author: "Martin Kleppmann", isbn: "978-1449373320", publication_year: 2017, category: "Distributed Systems", rating: 4.9, pages: 616, description: "The definitive resource exploring the architecture of distributed systems, replication, partitioning, stream processing, and consensus algorithms." }
+    ];
+
     /**
      * Primary AJAX execution handler using jQuery $.ajax()
      */
@@ -35,6 +47,22 @@ $(document).ready(function () {
         // Clear previous notifications and books
         $statusAlert.hide().empty();
         $booksContainer.empty();
+
+        // Direct offline fallback for file:/// protocol
+        if (window.location.protocol === 'file:' && API_CONFIG.mode === 'mock') {
+            $loader.show();
+            $loadBtn.prop('disabled', true).html('<span>⏳</span> Loading Offline Dataset...');
+            setTimeout(function () {
+                $loader.hide();
+                $loadBtn.prop('disabled', false).html('<span>📚</span> Reload Books (Offline Mode)');
+                $clearBtn.show();
+                cachedBooks = FALLBACK_BOOKS;
+                populateCategoryDropdown(FALLBACK_BOOKS);
+                renderBooks(FALLBACK_BOOKS);
+                showStatus(`Successfully loaded ${FALLBACK_BOOKS.length} books via Offline Dataset (file:/// mode; run via HTTP server for native $.ajax).`, 'success');
+            }, 350);
+            return;
+        }
 
         const endpoint = (API_CONFIG.mode === 'mock') 
             ? API_CONFIG.mockUrl 
@@ -95,11 +123,21 @@ $(document).ready(function () {
                 }, 350);
             },
 
-            // 4. Error Handler: Triggers on HTTP errors (404, 500, timeouts)
+            // 4. Error Handler: Triggers on HTTP errors (404, 500, timeouts, CORS)
             error: function (xhr, status, errorThrown) {
                 $loader.hide();
                 $loadBtn.prop('disabled', false).html('<span>📚</span> Load Books ($.ajax)');
                 
+                // If local CORS blocked the request, automatically fall back so demonstration never breaks
+                if (API_CONFIG.mode === 'mock' && (xhr.status === 0 || !xhr.status)) {
+                    $clearBtn.show();
+                    cachedBooks = FALLBACK_BOOKS;
+                    populateCategoryDropdown(FALLBACK_BOOKS);
+                    renderBooks(FALLBACK_BOOKS);
+                    showStatus(`Local CORS restricted raw $.ajax() on file://; loaded ${FALLBACK_BOOKS.length} books via Safe Fallback.<br>Tip: Run on <code>http://localhost</code> for native $.ajax() HTTP requests.`, 'warning');
+                    return;
+                }
+
                 let errorDetails = `API Request Failed!<br><strong>Status:</strong> ${xhr.status} (${status})<br><strong>Error:</strong> ${errorThrown || 'Network connection unavailable'}`;
                 showStatus(errorDetails, 'danger');
             },
